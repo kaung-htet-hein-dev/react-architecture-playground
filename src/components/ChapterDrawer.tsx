@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { ChapterNav, ChapterProgress, ReducedMotionToggle } from './ChapterNav'
+import { ChapterNav, ChapterProgress } from './ChapterNav'
 
 export interface ChapterDrawerProps {
   open: boolean
@@ -47,9 +47,6 @@ export function ChapterDrawer({ open, onClose, current }: ChapterDrawerProps) {
         </div>
         <ChapterProgress current={current} />
         <ChapterNav current={current} onNavigate={onClose} touch />
-        <div className="mt-auto pt-4">
-          <ReducedMotionToggle />
-        </div>
       </div>
     </dialog>
   )

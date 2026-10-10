@@ -25,7 +25,6 @@ export function removeStore(key: string): void {
 
 /** Every localStorage key the app uses, in one place. */
 export const STORE_KEYS = {
-  reducedMotion: 'rcr-reduced-motion',
   version: (id: string) => `rcr-version-${id}`,
   playgroundPreset: 'rcr-playground-preset',
   playgroundStep: 'rcr-playground-step',

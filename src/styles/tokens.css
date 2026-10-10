@@ -15,7 +15,7 @@
   /* Broken rules and wrong results. Not a phase */
   --color-error: oklch(72% 0.14 25);
   /* Browser paint (not a React phase): neutral */
-  --color-paint: #a2a9b3;
+  --color-paint: #99a1b3;
 
   /* Derived phase tints. fill 14% · code line 13% · border 60% · loop pill fill 12%, border 45% */
   --color-trigger-fill: oklch(80% 0.12 75 / 0.14);
@@ -49,37 +49,37 @@
   --color-commit-ink: #eefaf2;
   --color-reconcile-pressed-ink: #f2ecfb;
   /* Dark text on a phase-colored button (play button, order badge) */
-  --color-on-phase: #16181d;
+  --color-on-phase: #23272f;
 
   /* Accent (not a phase): primary buttons and links */
-  --color-accent: oklch(82% 0.1 195);
-  --color-accent-ink: #16181d;
-  --color-link: oklch(78% 0.12 240);
+  --color-accent: #149eca; /* react.dev brand-dark */
+  --color-accent-ink: #ffffff;
+  --color-link: #149eca;
 
   /* Surfaces */
-  --color-bg: #16181d;
-  --color-raised: #1a1d23;
-  --color-panel: #1e2128;
-  --color-panel-hi: #252932;
-  --color-control: #262a33;
-  --color-control-hover: #2f343e;
-  --color-divider: #2a2e37;
-  --color-row-divider: #191c21; /* rows inside a list panel (ch4 "Why each one rendered") */
-  --color-border: #2f343e;
-  --color-border-strong: #3a3f4a;
-  --color-topbar: rgb(22 24 29 / 0.88);
-  --color-well: #14171c; /* preset dropdown button */
-  --color-track: #2a3038; /* toggle off, future scrubber ticks, selected speed */
-  --color-track-soft: #262b33; /* progress track on mobile, unlit mini bars, idle gap border */
-  --color-paint-block: #1f242b; /* paint block in the one-frame timeline */
+  --color-bg: #23272f; /* react.dev wash-dark */
+  --color-raised: #282c35;
+  --color-panel: #2b303a;
+  --color-panel-hi: #343a46;
+  --color-control: #343a46; /* react.dev secondary-button-dark */
+  --color-control-hover: #404756;
+  --color-divider: #343a46;
+  --color-row-divider: #262a32; /* rows inside a list panel (ch4 "Why each one rendered") */
+  --color-border: #404756;
+  --color-border-strong: #4e5769;
+  --color-topbar: rgb(35 39 47 / 0.88);
+  --color-well: #1c1f26; /* preset dropdown button */
+  --color-track: #404756; /* toggle off, future scrubber ticks, selected speed */
+  --color-track-soft: #343a46; /* progress track on mobile, unlit mini bars, idle gap border */
+  --color-paint-block: #343a46; /* paint block in the one-frame timeline */
 
   /* Tree nodes */
-  --color-node-idle-bg: #23262e;
-  --color-node-idle-bd: #3b404b;
-  --color-node-idle-fg: #c3c9d1;
-  --color-node-skip-bd: #3d434d;
-  --color-node-skip-fg: #737b86;
-  --color-node-pending-edge: #262b33;
+  --color-node-idle-bg: #2b303a;
+  --color-node-idle-bd: #4e5769;
+  --color-node-idle-fg: #d0d4dd;
+  --color-node-skip-bd: #4e5769;
+  --color-node-skip-fg: #8b95ab;
+  --color-node-pending-edge: #343a46;
 
   /* Live preview: the rendered app is a light surface */
   --color-preview: #f3f2ee;
@@ -102,36 +102,37 @@
   --color-preview-skeleton: #dedad2; /* skeleton bars (ch8) */
 
   /* Text */
-  --color-text-heading: #eef0f2;
-  --color-text-strong: #e4e7eb;
-  --color-text-node: #c3c9d1; /* control icons, idle node text, paused chip */
-  --color-text-code: #c9ced6;
-  --color-text-prose: #b4bac3;
-  --color-text-secondary: #a2a9b3;
-  --color-text-muted: #8a929c; /* punctuation, complete ticks */
-  --color-text-label: #7d8590;
-  --color-text-faint: #5b636e;
-  --color-text-gutter: #4a515b;
-  --color-dot-off: #3a404a; /* unlit loop dot, eyebrow rule */
+  --color-text-heading: #f6f7f9; /* react.dev gray-5 */
+  --color-text-strong: #ebecf0;
+  --color-text-node: #d0d4dd; /* control icons, idle node text, paused chip */
+  --color-text-code: #d0d4dd;
+  --color-text-prose: #d0d4dd;
+  --color-text-secondary: #bcc1cd; /* gray-30 */
+  --color-text-muted: #99a1b3; /* gray-40 */ /* punctuation, complete ticks */
+  --color-text-label: #99a1b3;
+  --color-text-faint: #78839b;
+  --color-text-gutter: #5e687e;
+  --color-dot-off: #4e5769; /* unlit loop dot, eyebrow rule */
 
   /* Syntax: muted on purpose so phase colors carry the meaning */
   --color-syn-keyword: oklch(76% 0.07 330);
   --color-syn-string: oklch(81% 0.05 70);
   --color-syn-tag: oklch(80% 0.05 215);
   --color-syn-component: oklch(82% 0.05 215);
-  --color-syn-api: #eef0f2;
-  --color-syn-punct: #8a929c;
-  --color-syn-comment: #6b737e;
-  --color-syn-default: #c9ced6;
+  --color-syn-api: #f6f7f9;
+  --color-syn-punct: #99a1b3;
+  --color-syn-comment: #8b95ab;
+  --color-syn-default: #d0d4dd;
 
-  /* Type: system stacks, no web fonts */
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  /* Type: react.dev stacks. Source Code Pro loads from Google Fonts; Optimistic Display falls back to system-ui */
+  --font-sans: 'Optimistic Display', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Source Code Pro', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* Radii: 4 tag · 6 control/node · 7-8 button · 10 panel · 12 large card · 24 phone */
   --radius-tag: 4px;
   --radius-control: 6px;
   --radius-button: 8px;
+  --radius-pill: 9999px; /* react.dev buttons are fully rounded */
   --radius-panel: 10px;
   --radius-card: 12px;
   --radius-phone: 24px;

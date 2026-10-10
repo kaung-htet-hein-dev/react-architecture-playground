@@ -1,13 +1,8 @@
 import { createContext, useContext } from 'react'
 
 export interface Settings {
-  /** Effective reduced motion: the OS setting OR the in-app toggle. */
-  reducedMotion: boolean
   /** The OS asks for reduced motion (prefers-reduced-motion: reduce). */
-  systemReducedMotion: boolean
-  /** The in-app toggle, saved in localStorage. */
-  reducedMotionToggle: boolean
-  setReducedMotionToggle: (on: boolean) => void
+  reducedMotion: boolean
 }
 
 export const SettingsContext = createContext<Settings | null>(null)

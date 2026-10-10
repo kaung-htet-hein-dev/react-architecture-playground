@@ -1,7 +1,5 @@
 import { CHAPTERS, CHAPTER_COUNT, chapterDots, pad2 } from '../app/chapters'
-import { useSettings } from '../app/settings'
 import { C } from '../sim/colors'
-import { Toggle } from './ui/Toggle'
 
 export interface ChapterNavProps {
   /** Current chapter (1-based). */
@@ -70,19 +68,5 @@ export function ChapterNav({ current, onNavigate, touch }: ChapterNavProps) {
         )
       })}
     </nav>
-  )
-}
-
-/** In-app reduced-motion switch (saved in localStorage). Shows when the OS already asks. */
-export function ReducedMotionToggle() {
-  const { reducedMotionToggle, setReducedMotionToggle, systemReducedMotion } = useSettings()
-  return (
-    <Toggle
-      checked={reducedMotionToggle || systemReducedMotion}
-      disabled={systemReducedMotion}
-      onChange={setReducedMotionToggle}
-      label="Reduced motion"
-      description={systemReducedMotion ? 'On in your system settings' : 'No autoplay, no transitions'}
-    />
   )
 }

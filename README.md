@@ -25,7 +25,7 @@ pnpm test       # run the Vitest suite once
 
 ## Where things live
 
-- `src/app/`: routes, settings (reduced motion), chapter list and loop-indicator mapping
+- `src/app/`: routes, settings (reduced motion from the OS), chapter list and loop-indicator mapping
 - `src/pages/Course.tsx`, `src/pages/course/`: the guide page and one component per chapter (chapter-only parts in `chN/`)
 - `src/pages/Playground.tsx`, `src/pages/playground/`: the Playground page and its panes
 - `src/components/`: shared UI (top bar, sidebar, CodePane, ComponentTree, SimControls, DomLog, LivePreview, FrameTimeline, Workbench) with primitives in `ui/`
@@ -38,4 +38,4 @@ pnpm test       # run the Vitest suite once
 
 ## Accessibility
 
-Reduced motion turns on when the OS asks for it or when you use the toggle in the sidebar (saved in localStorage). With reduced motion on, nothing autoplays and nothing transitions, and the trees show numbered render-order badges. Everything can be operated with the keyboard. In the Playground, `→` steps forward, `←` steps back and `Space` plays or pauses.
+Reduced motion turns on when the OS asks for it (`prefers-reduced-motion`). With reduced motion on, nothing autoplays and nothing transitions, and the trees show numbered render-order badges. Everything can be operated with the keyboard. In the Playground, `→` steps forward, `←` steps back and `Space` plays or pauses.

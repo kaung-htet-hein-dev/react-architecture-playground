@@ -2,7 +2,6 @@ import { act, renderHook } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { SettingsProvider } from '../app/SettingsProvider'
-import { STORE_KEYS } from '../lib/storage'
 import type { Scenario, Step } from './types'
 import { useSimulation } from './useSimulation'
 
@@ -30,7 +29,10 @@ beforeEach(() => {
   vi.useFakeTimers()
   localStorage.clear()
 })
-afterEach(() => vi.useRealTimers())
+afterEach(() => {
+  vi.useRealTimers()
+  vi.unstubAllGlobals()
+})
 
 describe('useSimulation', () => {
   it('starts idle at index 0 with total = steps - 1', () => {
@@ -127,7 +129,11 @@ describe('useSimulation', () => {
   })
 
   it('does not autoplay in reduced motion: play moves one step', () => {
-    localStorage.setItem(STORE_KEYS.reducedMotion, 'true')
+    vi.stubGlobal('matchMedia', (query: string) => ({
+      matches: query.includes('prefers-reduced-motion'),
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }))
     const { result } = setup({ n: 4 })
     act(() => result.current.play())
     expect(result.current.index).toBe(1)

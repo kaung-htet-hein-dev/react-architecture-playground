@@ -31,7 +31,7 @@ const PHASE_CARDS: [Phase | 'error', string, string, string][] = [
 ]
 
 const NEUTRALS: [string, string, string][] = [
-  ['bg', '#16181d', 'page'], ['raised', '#1a1d23', 'code, top bar'], ['panel', '#1e2128', 'panels'], ['control', '#262a33', 'buttons'],
+  ['bg', '#23272f', 'page'], ['raised', '#282c35', 'code, top bar'], ['panel', '#2b303a', 'panels'], ['control', '#343a46', 'buttons'],
   ['divider', '#2a2e37', 'inside panels'], ['border', '#2f343e', 'panel edge'], ['preview', '#f3f2ee', 'rendered app'],
   ['heading', '#eef0f2', 'titles'], ['strong', '#e4e7eb', 'UI text'], ['prose', '#b4bac3', 'body copy'], ['label', '#7d8590', 'labels'], ['faint', '#5b636e', 'line numbers'],
 ]
