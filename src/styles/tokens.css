@@ -1,0 +1,154 @@
+/*
+ * The only place color and type values live. Tailwind reads these through @theme
+ * (bg-panel, text-heading, border-render/60, ...) and runtime styles read them through `C`
+ * in src/sim/colors.ts as var(--color-*). `static` keeps every variable in the output.
+ *
+ * Values come from doc/README.md ("Theme", "Phase colors", "Neutrals", "Syntax palette") and
+ * the design files in doc/design. Phase colors are fixed: never reuse one for another meaning.
+ */
+@theme static {
+  /* Phases: same lightness and chroma in OKLCH, only the hue changes */
+  --color-trigger: oklch(80% 0.12 75);
+  --color-render: oklch(78% 0.12 240);
+  --color-reconcile: oklch(76% 0.12 300);
+  --color-commit: oklch(78% 0.12 155);
+  /* Broken rules and wrong results. Not a phase */
+  --color-error: oklch(72% 0.14 25);
+  /* Browser paint (not a React phase): neutral */
+  --color-paint: #a2a9b3;
+
+  /* Derived phase tints. fill 14% · code line 13% · border 60% · loop pill fill 12%, border 45% */
+  --color-trigger-fill: oklch(80% 0.12 75 / 0.14);
+  --color-render-fill: oklch(78% 0.12 240 / 0.14);
+  --color-reconcile-fill: oklch(76% 0.12 300 / 0.14);
+  --color-commit-fill: oklch(78% 0.12 155 / 0.14);
+  --color-error-fill: oklch(72% 0.14 25 / 0.14);
+  --color-trigger-line: oklch(80% 0.12 75 / 0.13);
+  --color-render-line: oklch(78% 0.12 240 / 0.13);
+  --color-reconcile-line: oklch(76% 0.12 300 / 0.13);
+  --color-commit-line: oklch(78% 0.12 155 / 0.13);
+  --color-error-line: oklch(72% 0.14 25 / 0.13);
+  --color-trigger-border: oklch(80% 0.12 75 / 0.6);
+  --color-render-border: oklch(78% 0.12 240 / 0.6);
+  --color-reconcile-border: oklch(76% 0.12 300 / 0.6);
+  --color-commit-border: oklch(78% 0.12 155 / 0.6);
+  --color-error-border: oklch(72% 0.14 25 / 0.6);
+  --color-trigger-pill: oklch(80% 0.12 75 / 0.12);
+  --color-render-pill: oklch(78% 0.12 240 / 0.12);
+  --color-reconcile-pill: oklch(76% 0.12 300 / 0.12);
+  --color-commit-pill: oklch(78% 0.12 155 / 0.12);
+  --color-error-pill: oklch(72% 0.14 25 / 0.12);
+  --color-trigger-pill-border: oklch(80% 0.12 75 / 0.45);
+  --color-render-pill-border: oklch(78% 0.12 240 / 0.45);
+  --color-reconcile-pill-border: oklch(76% 0.12 300 / 0.45);
+  --color-commit-pill-border: oklch(78% 0.12 155 / 0.45);
+
+  /* Tree-node text on a phase fill */
+  --color-render-ink: #eef4fc;
+  --color-reconcile-ink: #f5f1fb;
+  --color-commit-ink: #eefaf2;
+  --color-reconcile-pressed-ink: #f2ecfb;
+  /* Dark text on a phase-colored button (play button, order badge) */
+  --color-on-phase: #16181d;
+
+  /* Accent (not a phase): primary buttons and links */
+  --color-accent: oklch(82% 0.1 195);
+  --color-accent-ink: #16181d;
+  --color-link: oklch(78% 0.12 240);
+
+  /* Surfaces */
+  --color-bg: #16181d;
+  --color-raised: #1a1d23;
+  --color-panel: #1e2128;
+  --color-panel-hi: #252932;
+  --color-control: #262a33;
+  --color-control-hover: #2f343e;
+  --color-divider: #2a2e37;
+  --color-row-divider: #191c21; /* rows inside a list panel (ch4 "Why each one rendered") */
+  --color-border: #2f343e;
+  --color-border-strong: #3a3f4a;
+  --color-topbar: rgb(22 24 29 / 0.88);
+  --color-well: #14171c; /* preset dropdown button */
+  --color-track: #2a3038; /* toggle off, future scrubber ticks, selected speed */
+  --color-track-soft: #262b33; /* progress track on mobile, unlit mini bars, idle gap border */
+  --color-paint-block: #1f242b; /* paint block in the one-frame timeline */
+
+  /* Tree nodes */
+  --color-node-idle-bg: #23262e;
+  --color-node-idle-bd: #3b404b;
+  --color-node-idle-fg: #c3c9d1;
+  --color-node-skip-bd: #3d434d;
+  --color-node-skip-fg: #737b86;
+  --color-node-pending-edge: #262b33;
+
+  /* Live preview: the rendered app is a light surface */
+  --color-preview: #f3f2ee;
+  --color-preview-chrome: #e3e1db;
+  --color-preview-dot: #c4c1b9;
+  --color-preview-ink: #16181c;
+  --color-preview-url: #6d6a63;
+  --color-preview-tab: #3d3b37;
+  --color-preview-error-bg: #2a1414;
+  --color-preview-error-ink: #ffd9d2;
+  /* Right / wrong marks on the light preview (darker so they pass AA on #f3f2ee) */
+  --color-preview-ok: oklch(48% 0.12 155);
+  --color-preview-bad: oklch(50% 0.17 25);
+  --color-warn-ink: oklch(86% 0.08 75); /* console warning text (ch6) */
+  --color-preview-alert: #9a3a2b; /* "you typed …" on the light preview (ch8) */
+  --color-preview-muted: #4b5563; /* isPending note on the light preview (ch8) */
+  --color-preview-sub: #4b4a46; /* secondary text on the light preview (ch8) */
+  --color-preview-dash: #b9b5ab; /* Suspense fallback outline (ch8) */
+  --color-preview-label: #7a766d; /* Suspense fallback label (ch8) */
+  --color-preview-skeleton: #dedad2; /* skeleton bars (ch8) */
+
+  /* Text */
+  --color-text-heading: #eef0f2;
+  --color-text-strong: #e4e7eb;
+  --color-text-node: #c3c9d1; /* control icons, idle node text, paused chip */
+  --color-text-code: #c9ced6;
+  --color-text-prose: #b4bac3;
+  --color-text-secondary: #a2a9b3;
+  --color-text-muted: #8a929c; /* punctuation, complete ticks */
+  --color-text-label: #7d8590;
+  --color-text-faint: #5b636e;
+  --color-text-gutter: #4a515b;
+  --color-dot-off: #3a404a; /* unlit loop dot, eyebrow rule */
+
+  /* Syntax: muted on purpose so phase colors carry the meaning */
+  --color-syn-keyword: oklch(76% 0.07 330);
+  --color-syn-string: oklch(81% 0.05 70);
+  --color-syn-tag: oklch(80% 0.05 215);
+  --color-syn-component: oklch(82% 0.05 215);
+  --color-syn-api: #eef0f2;
+  --color-syn-punct: #8a929c;
+  --color-syn-comment: #6b737e;
+  --color-syn-default: #c9ced6;
+
+  /* Type: system stacks, no web fonts */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Radii: 4 tag · 6 control/node · 7-8 button · 10 panel · 12 large card · 24 phone */
+  --radius-tag: 4px;
+  --radius-control: 6px;
+  --radius-button: 8px;
+  --radius-panel: 10px;
+  --radius-card: 12px;
+  --radius-phone: 24px;
+
+  /* Breakpoints (REQUIREMENTS §8): mobile ≤ 768 · tablet 769–1023 · desktop ≥ 1024.
+     `md:` starts at 769px so `max-md:` is exactly the ≤ 768 mobile layout. */
+  --breakpoint-md: 769px;
+  --breakpoint-lg: 1024px;
+
+  /* Layout */
+  --spacing-topbar: 56px;
+  --spacing-mobilebar: 52px;
+  --spacing-sidebar: 232px;
+  --container-content: 1200px;
+  --container-copy: 780px;
+
+  --shadow-dropdown: 0 12px 32px rgb(0 0 0 / 0.5);
+
+  --ease-out-wave: cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -1,0 +1,227 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text-strong);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-text-heading);
+  }
+  ::selection {
+    background: oklch(82% 0.1 195 / 0.3);
+  }
+  input,
+  button,
+  select,
+  textarea {
+    font: inherit;
+  }
+  button {
+    cursor: pointer;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+  button:disabled {
+    cursor: default;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-text-strong);
+    outline-offset: 2px;
+  }
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--font-mono);
+    font-variant-ligatures: none;
+  }
+
+  /* Reduced motion: set by SettingsProvider from the media query or the in-app toggle */
+  html[data-reduced-motion='true'] {
+    scroll-behavior: auto;
+  }
+  html[data-reduced-motion='true'] *,
+  html[data-reduced-motion='true'] *::before,
+  html[data-reduced-motion='true'] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@layer components {
+  /* Mono label: 11 / 500 / uppercase / +0.08em */
+  .label {
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-label);
+  }
+  /* Panel header row: 40px, mono label left, meta right */
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    height: 40px;
+    padding: 0 14px;
+    border-bottom: 1px solid var(--color-divider);
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-label);
+  }
+  .panel {
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-panel);
+    overflow: hidden;
+  }
+  .prose-body {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-text-prose);
+    text-wrap: pretty;
+  }
+  /* Defined term, the first time it appears */
+  .term {
+    font-weight: 500;
+    color: var(--color-text-heading);
+  }
+  .display {
+    margin: 0;
+    font-weight: 600;
+    font-size: 84px;
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    color: var(--color-text-heading);
+    text-wrap: balance;
+  }
+  .h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--color-text-heading);
+    text-wrap: balance;
+  }
+  .h3 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    color: var(--color-text-heading);
+  }
+  .lede {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--color-text-prose);
+    text-wrap: pretty;
+  }
+  @media (max-width: 768px) {
+    .display {
+      font-size: 40px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .h2 {
+      font-size: 30px;
+      line-height: 1.08;
+    }
+    .lede {
+      font-size: 15px;
+    }
+  }
+
+  /* Buttons: hover lightens one step */
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 18px;
+    border-radius: var(--radius-button);
+    font-size: 14px;
+    transition: background-color 0.15s, color 0.15s;
+  }
+  .btn-primary,
+  .btn-primary:hover {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+    font-weight: 600;
+  }
+  .btn-primary:hover {
+    filter: brightness(1.06);
+  }
+  .btn-secondary {
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text-strong);
+    font-weight: 500;
+  }
+  .btn-secondary:hover {
+    background: var(--color-control);
+    color: var(--color-text-strong);
+  }
+  .btn-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 12px;
+    border-radius: var(--radius-control);
+    background: var(--color-control);
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text-strong);
+    font-size: 13px;
+    font-weight: 500;
+    transition: background-color 0.15s;
+  }
+  .btn-control:hover:not(:disabled) {
+    background: var(--color-control-hover);
+  }
+  @media (max-width: 768px) {
+    .btn-control {
+      min-height: 44px;
+    }
+  }
+}
+
+/* Playground tree swap: the pane labels slide into place (240ms; off in reduced motion) */
+@keyframes pg-label-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.pg-label-in {
+  animation: pg-label-in 240ms ease-out;
+}
