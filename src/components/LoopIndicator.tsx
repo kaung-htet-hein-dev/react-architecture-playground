@@ -8,7 +8,7 @@ export interface LoopIndicatorProps {
 }
 
 /**
- * Four phase pills (26px, mono 10.5 uppercase, 6px dot). Lit: phase text and dot, 12% fill,
+ * Four phase pills (26px, mono 12, 6px dot). Lit: phase text and dot, 12% fill,
  * 45% border. Unlit: faint text, dark dot, border. Pills switch instantly, with no colour
  * transition: a cross-fade showed the old and new phase lit together (e.g. Render + Reconcile
  * for a moment when ch5 became current), which R-G4 rules out.
@@ -23,7 +23,7 @@ export function LoopIndicator({ lit, className = '' }: LoopIndicatorProps) {
           <span
             key={k}
             aria-hidden
-            className="flex h-[26px] items-center gap-1.5 rounded-control border px-2.5 font-mono text-[10.5px] leading-none font-medium tracking-[0.07em] uppercase"
+            className="flex h-[26px] items-center gap-1.5 rounded-control border px-2.5 font-mono text-xs leading-none font-medium"
             style={{
               borderColor: on ? alpha(C[k], 45) : C.border,
               background: on ? alpha(C[k], 12) : 'transparent',

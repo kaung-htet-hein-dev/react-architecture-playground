@@ -15,6 +15,7 @@ export const C = {
   paint: v('paint'),
   onPhase: v('on-phase'),
   accent: v('accent'),
+  logo: v('logo'),
   accentInk: v('accent-ink'),
   link: v('link'),
 

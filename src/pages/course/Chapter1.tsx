@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { CHAPTERS } from '../../app/chapters'
-import { useReportHeroPhases } from '../../app/heroPhase'
 import { ChapterHeader } from '../../components/ChapterHeader'
 import { CodePane } from '../../components/code/CodePane'
 import { DomLog } from '../../components/DomLog'
@@ -16,56 +15,68 @@ import { WhyWhatHow } from '../../components/WhyWhatHow'
 import { C, PHASE_LABEL } from '../../sim/colors'
 import { simControlProps } from '../../sim/playback'
 import { CH1_CODE, ch1Counter, type Ch1Params } from '../../sim/scenarios/ch1-counter'
-import { isPhase, PHASES, type Phase, type SimStatus, type Step } from '../../sim/types'
+import { PHASES, type Phase, type SimStatus, type Step } from '../../sim/types'
 import { useSimulation } from '../../sim/useSimulation'
 import { ChapterSection } from './ChapterSection'
 
 const info = CHAPTERS[0]
 
-/** The 4-cell loop strip under the hero: one definition per phase. */
+/** The four loop cards under the hero: one definition per phase. */
 const LOOP: Record<Phase, string> = {
-  trigger: 'Something asks for new state: a click handler, a timer, a server response calling setState.',
-  render: 'React calls your component functions to get a fresh description of the UI.',
-  reconcile: 'React compares the new description with the previous one and lists the differences.',
-  commit: 'React applies only those differences to the DOM, runs effects, and the browser paints.',
+  trigger: 'Something calls setState: a click, a timer, or data coming back from a server.',
+  render: 'React calls your component functions. They return a new description of the UI.',
+  reconcile: 'React compares the new description with the old one and finds what changed.',
+  commit: 'React changes only those parts of the page, runs your effects, and the browser draws the result.',
 }
 
 function LoopStrip() {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-px overflow-hidden rounded-card border border-divider bg-divider">
+    <ol className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 p-0">
       {PHASES.map((p, i) => (
-        <div key={p} className="flex flex-col gap-2.5 bg-raised px-[22px] pt-5 pb-[22px]">
-          <span className="flex items-center gap-2 font-mono text-[11px] leading-none font-medium tracking-[0.08em] uppercase" style={{ color: C[p] }}>
-            <span className="size-2 rounded-[2px]" style={{ background: C[p] }} aria-hidden />
-            {i + 1} · {PHASE_LABEL[p]}
+        <li key={p} className="flex flex-col gap-2 rounded-panel border border-border bg-raised p-5">
+          <span className="font-mono text-xs leading-none text-text-faint">{String(i + 1).padStart(2, '0')}</span>
+          <span className="flex items-center gap-2 text-[15px] leading-snug font-semibold" style={{ color: C[p] }}>
+            <span className="size-2.5 rounded-[2px]" style={{ background: C[p] }} aria-hidden />
+            {PHASE_LABEL[p]}
           </span>
-          <p className="m-0 text-[15px] leading-normal text-text-prose">{LOOP[p]}</p>
-        </div>
+          <p className="m-0 text-sm leading-[1.55] text-text-secondary">{LOOP[p]}</p>
+        </li>
       ))}
-    </div>
+    </ol>
   )
 }
 
+/**
+ * Full-height intro band above chapter 1 (reactnative.dev course hero): eyebrow, title, lede,
+ * the four loop cards, then the two calls to action.
+ */
 function Hero() {
   return (
-    <div className="flex max-w-[880px] flex-col gap-6">
-      <span className="font-mono text-xs leading-none font-medium tracking-[0.08em] text-text-label uppercase">
-        A guide to how React works, for people who already use it
-      </span>
-      <h1 className="display">Render, Commit, Repeat</h1>
-      <p className="lede max-w-[690px]">
-        You already write useState, map over lists with keys, and reach for useEffect. We'll slow React down until you can see what it does with each of
-        those: which functions run, what gets compared, and which DOM nodes actually change.
-      </p>
-      <div className="flex flex-wrap gap-2.5">
-        <a href="#ch1-bench" className="btn-primary">
-          Follow one click
-        </a>
-        <Link to="/playground" className="btn-secondary">
-          Open the Playground
-        </Link>
+    <section
+      id="intro"
+      aria-label="Introduction"
+      className="flex min-h-[calc(100dvh-var(--spacing-topbar))] scroll-mt-topbar flex-col justify-center border-b border-divider px-12 py-16 max-lg:px-10 max-md:min-h-0 max-md:px-4 max-md:py-14"
+    >
+      <div className="mx-auto flex w-full max-w-content flex-col gap-12 max-md:gap-10">
+        <div className="flex max-w-[860px] flex-col gap-5">
+          <span className="eyebrow">A guide to how React works, for people who already use it</span>
+          <h1 className="display">React Internal</h1>
+          <p className="lede max-w-[760px]">
+            You already use useState, keys and useEffect. Here we slow React down so you can watch each step: which functions run, what React compares,
+            and which parts of the page really change.
+          </p>
+        </div>
+        <LoopStrip />
+        <div className="flex flex-wrap items-center gap-3">
+          <a href="#ch1-bench" className="btn-primary">
+            Follow one click
+          </a>
+          <Link to="/playground" className="btn-secondary">
+            Open the Playground
+          </Link>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -90,88 +101,90 @@ export function Chapter1() {
   const { step, steps, status } = sim
   const final = steps[steps.length - 1]
   const meta = phaseMeta(status, step)
-  const lit = step.loopPhases ?? (isPhase(step.phase) ? [step.phase] : [])
-  useReportHeroPhases(lit)
 
   const onPreviewClick = () => {
     if (status === 'idle' || status === 'complete') sim.play()
   }
 
   return (
-    <ChapterSection n={1} hero>
+    <>
       <Hero />
-      <LoopStrip />
+      <ChapterSection n={1}>
+        <div className="flex flex-col gap-12">
+          <ChapterHeader n={1} title={info.title} eyebrow={info.eyebrow} />
+          <WhyWhatHow
+            why="You have written this counter many times. It works, so you never had to ask what happens between the click and the new number. Most React bugs and speed problems happen in that gap."
+            what={
+              <>
+                One click goes through the four steps above. A <b className="term">component tree</b> is how React sees your app: every component, and every
+                HTML tag it returns, is a box with one parent and some children.
+              </>
+            }
+            how="Press step to move forward one step at a time. The highlighted code line, the tree and the log always show the same moment, in the same color."
+          />
 
-      <div className="flex flex-col gap-8 pt-6">
-        <ChapterHeader n={1} title={info.title} eyebrow={info.eyebrow} />
-        <WhyWhatHow
-          why="You've written this counter a hundred times. It works, so you've never had to ask what happens between the click and the new number. That gap is where most React bugs and performance questions live."
-          what={
-            <>
-              One click goes through the four phases above. A <b className="term">component tree</b> is how React sees your app: each component, and each HTML
-              tag it returns, is a node with a parent and children.
-            </>
-          }
-          how="Press step. Each press moves one step forward. The highlighted line, the tree and the log always show the same moment, in the same phase color."
-        />
-
-        <Workbench
-          id="ch1-bench"
-          code={{
-            title: 'Code · Counter.jsx',
-            meta: meta.label,
-            metaColor: meta.color,
-            body: (
-              <CodePane
-                code={step.code ?? CH1_CODE}
-                activeLine={step.activeLine}
-                errorLine={step.errorLine}
-                phase={step.phase}
-                notes={step.notes}
-                label="Counter.jsx"
-              />
-            ),
-          }}
-          tree={{
-            title: 'Component tree',
-            meta: step.treeNote,
-            body: <ComponentTree nodes={step.tree} colWidth={96} />,
-            footer: <TreeLegend />,
-          }}
-          preview={{
-            title: 'Live preview',
-            meta: opsLabel(step.domOps.length),
-            body: (
-              <LivePreview error={step.preview.error}>
-                <PreviewButton onClick={onPreviewClick} aria-label="+1 (starts the simulation)">
-                  +1
-                </PreviewButton>
-                <span className="text-[19px] font-medium">
-                  Count: <PreviewValue highlight={step.preview.highlight?.includes('count')}>{String(step.preview.values.count)}</PreviewValue>
-                </span>
-              </LivePreview>
-            ),
-            footer: <DomLog header entries={final.log} current={step.log.length} />,
-          }}
-          controls={
-            <div className="flex flex-col gap-3">
-              <Toggle
-                checked={variant === 'error'}
-                onChange={(on) => setVariant(on ? 'error' : 'ok')}
-                label="onClick={setCount(count + 1)}"
-                description="Forget the arrow function and see what breaks"
-                className="self-start"
-              />
-              <SimControls {...simControlProps(sim)} />
-            </div>
-          }
-          after={
-            <Panel title="From event to pixel · one frame" meta="≈16.7 ms at 60 Hz · not to scale">
-              <FrameTimeline blocks={step.timeline?.blocks ?? []} playhead={step.timeline?.playhead ?? 0} label="One frame: event, render, diff, commit, idle, paint" />
-            </Panel>
-          }
-        />
-      </div>
-    </ChapterSection>
+          <Workbench
+            id="ch1-bench"
+            code={{
+              title: 'Code · Counter.jsx',
+              meta: meta.label,
+              metaColor: meta.color,
+              body: (
+                <CodePane
+                  code={step.code ?? CH1_CODE}
+                  activeLine={step.activeLine}
+                  errorLine={step.errorLine}
+                  phase={step.phase}
+                  notes={step.notes}
+                  label="Counter.jsx"
+                />
+              ),
+            }}
+            tree={{
+              title: 'Component tree',
+              meta: step.treeNote,
+              body: <ComponentTree nodes={step.tree} colWidth={96} />,
+              footer: <TreeLegend />,
+            }}
+            preview={{
+              title: 'Live preview',
+              meta: opsLabel(step.domOps.length),
+              body: (
+                <LivePreview error={step.preview.error}>
+                  <PreviewButton onClick={onPreviewClick} aria-label="+1 (starts the simulation)">
+                    +1
+                  </PreviewButton>
+                  <span className="text-[19px] font-medium">
+                    Count: <PreviewValue highlight={step.preview.highlight?.includes('count')}>{String(step.preview.values.count)}</PreviewValue>
+                  </span>
+                </LivePreview>
+              ),
+              footer: <DomLog header entries={final.log} current={step.log.length} />,
+            }}
+            controls={
+              <div className="flex flex-col gap-4">
+                <Toggle
+                  checked={variant === 'error'}
+                  onChange={(on) => setVariant(on ? 'error' : 'ok')}
+                  label="onClick={setCount(count + 1)}"
+                  description="Forget the arrow function and see what breaks"
+                  className="self-start"
+                />
+                <SimControls {...simControlProps(sim)} />
+              </div>
+            }
+            after={
+              <Panel title="From event to pixel · one frame" meta="≈16.7 ms at 60 Hz · not to scale">
+                <FrameTimeline
+                  blocks={step.timeline?.blocks ?? []}
+                  playhead={step.timeline?.playhead ?? 0}
+                  label="One frame: event, render, compare, commit, idle, paint"
+                />
+              </Panel>
+            }
+          />
+        </div>
+      </ChapterSection>
+    </>
   )
 }

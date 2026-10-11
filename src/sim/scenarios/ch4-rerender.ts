@@ -57,10 +57,10 @@ export interface Ch4Data {
 export const WHY = {
   state: 'its own state changed (setState)',
   parent: 'its parent rendered',
-  memoBroken: 'memo, but style is a new object every render',
+  memoBroken: 'has memo, but style is a new object every render',
   context: 'it reads ThemeContext, and the value changed',
-  memoSkip: 'memo: its props are the same as last render (Object.is)',
-  parentSkipped: 'its parent skipped',
+  memoSkip: 'memo: its props are the same as last render, so it skips',
+  parentSkipped: 'its parent was skipped',
 } as const
 
 /** Main.jsx as it reads with the current toggles (design `ch4()`). */
@@ -234,7 +234,7 @@ export const ch4Rerender: Scenario<Ch4Params, Ch4Data> = (p) => {
     treeNote: summary(idle),
     log: [],
     data: idle,
-    caption: `Nothing has rendered yet. Press play to call setState in ${name}, or click any node to move the update.`,
+    caption: `Nothing has rendered yet. Press play to call setState in ${name}, or click any box to move the update.`,
   })
 
   const log1 = [{ text: `${r.queued} → queue update on ${name}`, tone: 'trigger' as const }]
@@ -258,7 +258,7 @@ export const ch4Rerender: Scenario<Ch4Params, Ch4Data> = (p) => {
     treeNote: summary(selfData),
     log: log2,
     data: selfData,
-    caption: `Everything above ${name} has no work, so React walks past it without calling it. ${name} itself is called again.`,
+    caption: `Nothing above ${name} changed, so React passes it without calling it. ${name} itself is called again.`,
   })
 
   const all = data(r.why, Object.values(r.states))
@@ -271,7 +271,7 @@ export const ch4Rerender: Scenario<Ch4Params, Ch4Data> = (p) => {
     treeNote: summary(all),
     log: log3,
     data: all,
-    caption: `${name} called setState, so ${name} renders again, and so does everything below it, unless memo can show nothing changed. Nothing above it renders. Click another node to move the update.`,
+    caption: `${name} called setState, so ${name} renders again, and so does everything below it, unless memo sees that nothing changed. Nothing above it renders. Click another box to move the update.`,
   })
 
   push({
@@ -283,8 +283,8 @@ export const ch4Rerender: Scenario<Ch4Params, Ch4Data> = (p) => {
     data: all,
     caption:
       r.domOps === 0
-        ? `${renderedCount} component${renderedCount === 1 ? '' : 's'} rendered, but every one returned the same elements as last time, so the commit makes 0 DOM writes. A render is not a DOM update.`
-        : `The commit wrote ${r.domOps} change${r.domOps === 1 ? '' : 's'} to the DOM; everything else that rendered returned the same elements as before.`,
+        ? `${renderedCount} component${renderedCount === 1 ? '' : 's'} rendered, but every one returned the same elements as last time, so the commit makes 0 DOM changes. A render does not always change the page.`
+        : `The commit made ${r.domOps} change${r.domOps === 1 ? '' : 's'} to the DOM. Everything else that rendered returned the same elements as before.`,
   })
   return steps
 }

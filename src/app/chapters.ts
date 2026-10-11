@@ -21,12 +21,12 @@ export interface ChapterInfo {
 export const CHAPTERS: readonly ChapterInfo[] = [
   { n: 1, id: 'ch1', title: 'One click, slowed down', phases: PHASES, loop: 'hero', eyebrow: 'All four phases' },
   { n: 2, id: 'ch2', title: 'Why React exists', phases: ['render'], loop: ['render'] },
-  { n: 3, id: 'ch3', title: 'UI as a function of state', phases: ['render'], loop: ['render'] },
+  { n: 3, id: 'ch3', title: 'UI is built from state', phases: ['render'], loop: ['render'] },
   { n: 4, id: 'ch4', title: 'What re-renders and why', phases: ['render'], loop: ['render'] },
-  { n: 5, id: 'ch5', title: 'Reconciliation and keys', phases: ['reconcile'], loop: ['reconcile'] },
-  { n: 6, id: 'ch6', title: 'Fiber and hooks', phases: ['render'], loop: ['render'] },
-  { n: 7, id: 'ch7', title: 'Commit and effects', phases: ['commit'], loop: ['commit'] },
-  { n: 8, id: 'ch8', title: 'Concurrent rendering', phases: ['trigger', 'render'], loop: ['trigger', 'render'] },
+  { n: 5, id: 'ch5', title: 'Keys and list matching', phases: ['reconcile'], loop: ['reconcile'] },
+  { n: 6, id: 'ch6', title: 'How hooks remember', phases: ['render'], loop: ['render'] },
+  { n: 7, id: 'ch7', title: 'DOM updates and effects', phases: ['commit'], loop: ['commit'] },
+  { n: 8, id: 'ch8', title: 'Urgent and non-urgent updates', phases: ['trigger', 'render'], loop: ['trigger', 'render'] },
   { n: 9, id: 'ch9', title: 'Modern React', phases: PHASES, loop: PHASES, eyebrow: 'Across the loop' },
   { n: 10, id: 'ch10', title: 'Wrap-up', phases: PHASES, loop: PHASES, eyebrow: 'The whole loop' },
 ]

@@ -13,18 +13,18 @@ export function BottomBar({ sim }: { sim: SimulationApi<PgData> }) {
   const lines = step.console ?? []
   const timeline = step.timeline ?? { playhead: 0, blocks: [] }
   return (
-    <div className="flex flex-col gap-2.5 border-t border-divider bg-raised px-4 pt-2.5 pb-3.5">
+    <div className="flex flex-col gap-3 border-t border-divider bg-raised px-4 pt-3 pb-4">
       <SimControls {...simControlProps(sim)} />
-      <div className="grid grid-cols-[minmax(0,1fr)_minmax(300px,420px)] gap-2.5">
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(300px,420px)] gap-3">
         <div className="overflow-hidden rounded-panel border border-border bg-panel">
-          <div className="panel-header" style={{ height: 30, fontSize: 10.5, padding: '0 12px' }}>
+          <div className="panel-header" style={{ height: 30, fontSize: 12, padding: '0 12px' }}>
             <span>Browser frames</span>
             <span>16.7 ms each</span>
           </div>
           <FrameTimeline variant="frames" blocks={timeline.blocks} playhead={timeline.playhead} label="Browser frames: six 16.7 ms frames with the work done in each" />
         </div>
         <div className="flex flex-col overflow-hidden rounded-panel border border-border bg-panel">
-          <div className="panel-header" style={{ height: 30, fontSize: 10.5, padding: '0 12px' }}>
+          <div className="panel-header" style={{ height: 30, fontSize: 12, padding: '0 12px' }}>
             <span>Console</span>
             <span>
               {lines.length} line{lines.length === 1 ? '' : 's'}

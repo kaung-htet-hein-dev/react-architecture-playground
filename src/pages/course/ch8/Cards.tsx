@@ -16,7 +16,7 @@ function Card({ title, children, body }: { title: string; children: ReactNode; b
   )
 }
 
-const laneLabel = 'font-mono text-[10.5px] leading-none font-medium tracking-[0.06em] uppercase'
+const laneLabel = 'font-mono text-xs leading-none font-medium'
 
 /** "An urgent update interrupts": SyncLane vs TransitionLane, from the model. */
 export function LaneCard({ data }: { data: LaneCardData }) {
@@ -25,7 +25,7 @@ export function LaneCard({ data }: { data: LaneCardData }) {
       title="An urgent update interrupts"
       body={
         <>
-          React gives each update a <b className="term">lane</b>, its priority. A keystroke lands in a faster lane than a transition, so it goes first.
+          React gives each update a <b className="term">lane</b>, which is its priority. A key press gets a faster lane than a transition, so it goes first.
         </>
       }
     >
@@ -85,7 +85,7 @@ function Comments({ commentsPromise }: { commentsPromise: Promise<Comment[]> }) 
 function CommentsSkeleton() {
   return (
     <div className="mt-1 flex flex-col gap-1.5 rounded-control p-2.5" style={{ border: `1.5px dashed ${C.previewDash}` }} role="status" aria-label="Loading comments">
-      <span className="font-mono text-[10px] font-medium tracking-[0.06em] uppercase" style={{ color: C.previewLabel }}>
+      <span className="font-mono text-xs font-medium" style={{ color: C.previewLabel }}>
         fallback · loading comments
       </span>
       <span className="h-2 w-4/5 rounded" style={{ background: C.previewSkeleton }} />
@@ -105,8 +105,8 @@ export function SuspenseCard() {
       title="Suspense shows a fallback"
       body={
         <>
-          <b className="term">Suspense</b> is a boundary. While something inside it waits for data or code, React shows the fallback there and keeps the rest of the
-          page.
+          <b className="term">Suspense</b> wraps part of the page. While something inside it waits for data or code, React shows a fallback (like a loading
+          box) in that spot and keeps the rest of the page working.
         </>
       }
     >
@@ -141,8 +141,8 @@ export function BatchingCard({ legacy, modern }: { legacy: number; modern: numbe
       title="Automatic batching"
       body={
         <>
-          <b className="term">Batching</b> means several setState calls produce one render. Since React 18 that happens everywhere, including timeouts and
-          promises.
+          <b className="term">Batching</b> means several setState calls lead to just one render. Since React 18 this happens everywhere, even inside setTimeout
+          and promises.
         </>
       }
     >

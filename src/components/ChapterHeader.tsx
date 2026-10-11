@@ -14,14 +14,14 @@ export interface ChapterHeaderProps {
 }
 
 /**
- * Chapter eyebrow (`NN` — rule — phase labels) and the 44px title (30px on mobile).
+ * Chapter eyebrow ("Chapter NN" · phase labels) and the 48px title (32px on mobile).
  */
 export function ChapterHeader({ n, title, phases = [], eyebrow, as: H = 'h2' }: ChapterHeaderProps) {
   return (
-    <header className="flex max-w-copy flex-col gap-3.5">
-      <div className="flex flex-wrap items-center gap-2.5 font-mono text-xs leading-none font-medium tracking-[0.08em] text-text-label uppercase max-md:gap-2 max-md:text-[11px]">
-        <span className="text-text-strong">{pad2(n)}</span>
-        <span className="h-px w-[18px] bg-dot-off max-md:w-3.5" aria-hidden />
+    <header className="flex max-w-copy flex-col gap-4">
+      <div className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-2">
+        <span>Chapter {pad2(n)}</span>
+        <span className="size-[3px] rounded-full bg-dot-off" aria-hidden />
         {eyebrow ? (
           <span>{eyebrow}</span>
         ) : (

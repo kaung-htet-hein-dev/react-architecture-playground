@@ -18,7 +18,7 @@ export interface BeforeNowCardProps {
   nowPhase?: Phase
 }
 
-const SECTION = 'border-t border-divider px-3.5 pt-2 font-mono text-[10.5px] leading-none font-medium tracking-[0.06em] uppercase'
+const SECTION = 'border-t border-divider px-3.5 pt-2 font-mono text-xs leading-none font-medium'
 
 /** One chapter-9 card: title + editable version chip, description, the old code, then the new code. */
 export function BeforeNowCard({ title, versionId, children, before, beforeLabel = 'Before', now, nowActive = 0, nowPhase = 'commit' }: BeforeNowCardProps) {

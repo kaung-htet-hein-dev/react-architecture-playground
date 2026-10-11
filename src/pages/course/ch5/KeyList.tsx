@@ -101,7 +101,7 @@ export function KeyList({ keyBy, items, result, stage, snapshot, registerInput, 
         </div>
         <div className="flex flex-col items-end gap-[3px]" title={committed ? result.ops.map((o) => o.text).join('\n') : undefined}>
           <span className="font-mono text-2xl leading-none font-semibold text-text-heading">{ops}</span>
-          <span className="font-mono text-[10px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">DOM op{ops === 1 ? '' : 's'}</span>
+          <span className="font-mono text-xs leading-none font-medium text-text-label">DOM op{ops === 1 ? '' : 's'}</span>
         </div>
       </div>
       <ul className="m-0 flex list-none flex-col gap-1.5 px-4 py-3.5">{rows.map((r) => r.node)}</ul>
@@ -115,7 +115,7 @@ export function KeyList({ keyBy, items, result, stage, snapshot, registerInput, 
             </div>
           ))
         ) : (
-          <p className="m-0 px-4 py-[5px] font-mono text-xs leading-[1.45] text-text-label">React lists each key's match here when it reconciles.</p>
+          <p className="m-0 px-4 py-[5px] font-mono text-xs leading-[1.45] text-text-label">React shows how it matched each key here.</p>
         )}
       </div>
       <div className="mt-auto border-t border-divider bg-raised">

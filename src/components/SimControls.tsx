@@ -59,11 +59,11 @@ export function SimControls({
 
   return (
     <div
-      className={`flex flex-col gap-3 rounded-panel border border-border bg-panel px-3.5 pt-3 pb-3.5 ${className}`}
+      className={`flex flex-col gap-4 rounded-panel border border-border bg-panel p-4 ${className}`}
       role="group"
       aria-label="Simulation controls"
     >
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-3">
         {!compact && (
           <button type="button" onClick={onReset} title="Reset" className={`${iconBtn} w-auto px-2.5 text-xs font-medium`}>
             Reset
@@ -164,9 +164,9 @@ export function SimControls({
         </span>
       </div>
       {caption && (
-        <p className="m-0 flex gap-3 text-[15px] leading-[1.6] text-text-code" aria-live="polite">
+        <p className="m-0 flex gap-4 border-t border-divider pt-4 text-[15px] leading-[1.65] text-text-code max-md:flex-col max-md:gap-2" aria-live="polite">
           <span
-            className="mt-[3px] flex-none font-mono text-[10.5px] leading-4 font-medium tracking-[0.06em] uppercase"
+            className="mt-[3px] flex-none font-mono text-xs leading-4 font-medium"
             style={{ color: chip.fg }}
           >
             {status === 'error' ? 'Why it broke' : 'What happened'}

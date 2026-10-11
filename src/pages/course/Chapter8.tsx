@@ -39,19 +39,19 @@ export function Chapter8() {
     <ChapterSection n={8}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why="Rendering a big list can take longer than one frame. While React works, the browser can't respond, so typing feels broken even though nothing is technically wrong."
+        why="Rendering a big list can take longer than one frame (about 16 ms). While React is busy, the browser can't react to you, so typing feels stuck even though the code has no bug."
         what={
           <>
-            Since React 18 you can mark an update as a <b className="term">transition</b>: not urgent. React renders it in small chunks, checks for urgent work
-            between chunks, and can throw a half-finished render away to handle a keystroke first. Nothing is committed until a render finishes, so you never see
-            half an update.
+            Since React 18 you can mark an update as a <b className="term">transition</b>, which means "not urgent". React renders it in small pieces and checks
+            for urgent work between pieces. It can throw away a half-done render to handle a key press first. The page only changes when a render is
+            finished, so you never see half an update.
           </>
         }
-        how={'We typed "react" into both inputs. Under each, the main thread track shows what ran, and the frame strip shows which frames the browser had to drop.'}
+        how={'We typed "react" into both inputs. Under each one, the main thread track shows what ran, and the frame strip shows which frames the browser had to skip.'}
       />
 
-      <div className="flex flex-col gap-3">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(440px,1fr))] gap-3">
+      <div className="flex flex-col gap-5">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(440px,1fr))] gap-5">
           <TypingCard
             title="Blocking · plain setState"
             mode="blocking"
@@ -69,7 +69,7 @@ export function Chapter8() {
             code={
               <>
                 <CodePane code={CH8_TRANS_CODE} activeLine={6} phase="render" size="sm" label="useTransition onChange" />
-                <div className="border-t border-divider bg-panel px-3.5 pt-2.5 font-mono text-[10.5px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">
+                <div className="border-t border-divider bg-panel px-3.5 pt-2.5 font-mono text-xs leading-none font-medium text-text-label">
                   Or, when you only receive the value · useDeferredValue
                 </div>
                 <CodePane code={CH8_DEFER_CODE} activeLine={1} phase="render" size="sm" label="useDeferredValue" />
@@ -80,7 +80,7 @@ export function Chapter8() {
         <TrackLegend />
         <SimControls {...simControlProps(sim)} />
 
-        <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] gap-3">
+        <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] gap-5">
           <LaneCard data={LANES} />
           <SuspenseCard />
           <BatchingCard legacy={BATCH.legacy} modern={BATCH.modern} />

@@ -27,22 +27,23 @@ export interface WorkbenchProps {
 }
 
 /**
- * Three panes side by side: code · tree · live preview with log
- * (`repeat(auto-fit, minmax(320px, 1fr))`, gap 12), then controls and extras.
+ * Code on its own full-width row (long lines stay readable), tree + live preview with log side
+ * by side below, then controls and extras. Columns follow the workbench's own width (container
+ * query): stacked under 640px. Gap 20.
  */
 export function Workbench({ code, tree, preview, controls, after, id, className = '' }: WorkbenchProps) {
   return (
-    <div id={id} className={`flex scroll-mt-[72px] flex-col gap-3 ${className}`}>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] gap-3">
-        <Panel title={code.title} meta={code.meta} metaColor={code.metaColor}>
+    <div id={id} className={`@container flex scroll-mt-[72px] flex-col gap-5 ${className}`}>
+      <div className="grid grid-cols-1 gap-5 @min-[640px]:grid-cols-2">
+        <Panel title={code.title} meta={code.meta} metaColor={code.metaColor} className="@min-[640px]:col-span-2">
           {code.body}
         </Panel>
         <Panel title={tree.title} meta={tree.meta} metaColor={tree.metaColor}>
-          <div className="flex flex-1 items-center px-2 py-[18px]">{tree.body}</div>
+          <div className="flex flex-1 items-center px-4 py-7">{tree.body}</div>
           {tree.footer}
         </Panel>
         <Panel title={preview.title} meta={preview.meta} metaColor={preview.metaColor}>
-          <div className="p-3.5">{preview.body}</div>
+          <div className="p-5">{preview.body}</div>
           {preview.footer}
         </Panel>
       </div>

@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { CodePane } from '../components/code/CodePane'
-import { LoopIndicator } from '../components/LoopIndicator'
 import { BrandMark } from '../components/ui/BrandMark'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { readStore, STORE_KEYS, writeStore } from '../lib/storage'
 import { alpha, C } from '../sim/colors'
 import { cleanParam, DEFAULT_PRESET, fillParams, paramDefaults, presetById, PRESETS, type PgData, type PresetDef } from '../sim/scenarios/playground'
-import { isPhase, type SimulationApi } from '../sim/types'
+import { type SimulationApi } from '../sim/types'
 import { useSimulation } from '../sim/useSimulation'
 import { BottomBar } from './playground/BottomBar'
 import { PresetPicker } from './playground/PresetPicker'
@@ -113,7 +112,6 @@ export default function Playground() {
   const ownerLabel = ownerNode?.label ?? data.focus
   const hookOwner = { label: ownerLabel, slots: data.hooks[ownerId] ?? null, host: HOST_TAGS.test(ownerLabel) }
 
-  const lit = step.loopPhases ?? (isPhase(step.phase) ? [step.phase] : [])
   const phaseKey = step.phase === 'paint' ? 'commit' : step.phase
   const phLabel = status === 'idle' ? 'ready' : status === 'error' ? `step ${index} · error` : `step ${index} · ${step.phase}`
   const phColor = status === 'idle' ? C.label : status === 'error' ? C.error : C[phaseKey]
@@ -123,12 +121,10 @@ export default function Playground() {
       <header className="flex items-center gap-[18px] border-b border-divider bg-raised px-4">
         <Link to="/" className="flex flex-none items-center gap-2.5 text-text-heading hover:text-text-heading">
           <BrandMark />
-          <span className="text-sm font-semibold">Render, Commit, Repeat</span>
+          <span className="text-sm font-semibold">React Internal</span>
         </Link>
         <span className="h-5 w-px flex-none bg-border" aria-hidden />
         <h1 className="m-0 text-sm font-medium text-text-node">Playground</h1>
-        <span className="flex-1" />
-        <LoopIndicator lit={lit} />
         <span className="flex-1" />
         {reduced && (
           <span className="flex-none rounded-control border border-border-strong px-[9px] py-[7px] font-mono text-[11px] leading-none font-medium text-text-secondary">
@@ -145,10 +141,10 @@ export default function Playground() {
         </Link>
       </header>
 
-      <main className="grid min-h-0 grid-cols-[minmax(340px,400px)_minmax(0,1fr)_minmax(300px,360px)]">
+      <main className="grid min-h-0 grid-cols-[minmax(360px,440px)_minmax(0,1fr)_minmax(300px,360px)]">
         <div className="flex min-h-0 flex-col border-r border-divider">
           <PresetPicker presets={PRESETS} value={sel.id} onChange={choosePreset} />
-          <div className="flex h-[34px] flex-none items-center justify-between px-3.5 font-mono text-[11px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">
+          <div className="flex h-[34px] flex-none items-center justify-between px-3.5 font-mono text-xs leading-none font-medium text-text-label">
             <span>{preset.file} · read-only</span>
             <span style={{ color: phColor }}>{phLabel}</span>
           </div>
@@ -172,7 +168,7 @@ export default function Playground() {
             </div>
           )}
           <div className="flex flex-none flex-col gap-2 border-t border-divider px-3.5 pt-3 pb-3.5">
-            <div className="flex justify-between font-mono text-[11px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">
+            <div className="flex justify-between font-mono text-xs leading-none font-medium text-text-label">
               <span>Live preview</span>
               <span>{preset.previewHint}</span>
             </div>

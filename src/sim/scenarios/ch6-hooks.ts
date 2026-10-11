@@ -87,7 +87,7 @@ function hookList(f: Fiber | null): Hook[] {
   return out
 }
 
-const IDLE_CAPTION = "Two renders of Profile are queued up. Press step to watch each hook call take its slot, by position, on Profile's fiber."
+const IDLE_CAPTION = "Two renders of Profile are ready. Press step to watch each hook call take its slot, in order, on Profile's fiber."
 
 export interface Ch6Params {
   /** Kept for symmetry with other scenarios; the trace has no variants. */
@@ -181,7 +181,7 @@ export const ch6Hooks: Scenario<Ch6Params, Ch6Data> = () => {
   b.step({
     phase: 'trigger',
     activeLine: 1,
-    caption: 'The parent re-renders Profile with isAdmin = false. React will walk the same three slots again, one per hook call.',
+    caption: 'The parent re-renders Profile with isAdmin = false. React will go through the same three slots again, one per hook call.',
     data: { ...base, props: props(false), render1: r1done, render: 2 },
   })
   b.step({
@@ -197,7 +197,7 @@ export const ch6Hooks: Scenario<Ch6Params, Ch6Data> = () => {
     notes: { 6: '← reads slot 1' },
     dimLines: [3, 4, 5],
     caption:
-      "Second render: the if was false, so useState('dark') took slot 1, which still holds last render's effect. React can't tell which hook you meant, so it stops. Call hooks in the same order every render: never inside if, loops or after an early return.",
+      "Second render: the if was false, so useState('dark') took slot 1, which still holds last render's effect. React can't tell which hook you meant, so it stops with an error. Call hooks in the same order every render: never inside an if, a loop, or after an early return.",
     console: consoleLines(),
     data: { ...base, props: props(false), render1: r1done, render2: r2(2), render: 2, warning, error: CH6_ERROR, modelError: err?.message },
   })

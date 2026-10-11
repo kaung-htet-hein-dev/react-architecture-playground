@@ -48,7 +48,7 @@ export function PresetPicker({ presets, value, onChange }: PresetPickerProps) {
         aria-controls="preset-list"
         className="flex h-9 w-full items-center gap-2.5 rounded-[7px] border border-border-strong bg-well px-3 text-left text-[13px] font-medium text-text-heading hover:bg-control"
       >
-        <span className="font-mono text-[10.5px] font-medium tracking-[0.06em] text-text-label uppercase">Preset</span>
+        <span className="font-mono text-xs font-medium text-text-label">Preset</span>
         <span className="flex-1 truncate">{current?.label}</span>
         <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden>
           <polygon points="1,3 9,3 5,8" fill={C.label} />

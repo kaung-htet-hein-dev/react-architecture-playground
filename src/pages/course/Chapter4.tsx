@@ -33,17 +33,17 @@ export function Chapter4() {
     <ChapterSection n={4}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why={'"Why did this re-render?" is the most common React performance question. The answer is almost always one of three rules, and once you know them you can predict it before opening the profiler.'}
+        why={'"Why did this re-render?" is the most common React speed question. The answer is almost always one of three simple rules. Once you know them, you can guess the answer before you open any tools.'}
         what={
           <>
             A component re-renders when its own state changes, when its parent re-renders, or when a <b className="term">context</b> it reads changes.{' '}
-            <b className="term">memo</b> lets a component skip a parent-caused render if every prop passes <b className="term">Object.is</b>, a check that two
-            values are the same value. For objects, that means the same reference.
+            <b className="term">memo</b> lets a component skip a render caused by its parent if all its props are the same as last time. React checks this with{' '}
+            <b className="term">Object.is</b>. For objects, "the same" means the exact same object, not just one that looks equal.
           </>
         }
-        how="Click any node to call setState there and watch the wave move down, never up. Then flip the toggles: wrap Sidebar in memo, give it a new object every render, and let Avatar read a context."
+        how="Click any box in the tree to call setState there. Watch the renders go down the tree, never up. Then try the switches: wrap Sidebar in memo, pass it a new object every render, and let Avatar read a context."
       />
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-5">
         <Panel title="Component tree · click a node to set state there" meta={step.treeNote}>
           <div className="flex flex-wrap gap-2 border-b border-divider px-3.5 py-3">
             <Toggle checked={params.memo} onChange={(memo) => set({ memo })} label="memo(Sidebar)" description="Skip Sidebar when its props are the same" />
@@ -59,7 +59,7 @@ export function Chapter4() {
             />
           </div>
         </Panel>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-5">
           <Panel title="Code · Main.jsx" meta="updates live with toggles">
             <CodePane code={step.code ?? ch4Code(params)} activeLine={step.activeLine} phase="render" dimLines={step.dimLines} size="sm" label="Main.jsx" />
           </Panel>
@@ -75,11 +75,11 @@ export function Chapter4() {
                     <span className="font-mono text-xs font-medium text-text-strong">{w.label}</span>
                     <span className="text-[13.5px] leading-[1.4] text-text-prose">{w.why}</span>
                     {w.state === 'rendered' ? (
-                      <Tag tone="render" className="tracking-[0.06em] uppercase">
+                      <Tag tone="render" className="">
                         rendered
                       </Tag>
                     ) : (
-                      <Tag tone="muted" variant="dashed" className="tracking-[0.06em] uppercase">
+                      <Tag tone="muted" variant="dashed" className="">
                         skipped
                       </Tag>
                     )}

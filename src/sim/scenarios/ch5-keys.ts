@@ -122,7 +122,7 @@ const list = (items: readonly Item[]) => (items.length ? items.map((i) => i.labe
 
 const ERROR_CAPTION: Partial<Record<Ch5Action, string>> = {
   remove:
-    'With index keys, React thinks you removed the last row and renamed the other two. Each Row kept its old DOM input, so the text you typed now sits next to the wrong label. Use a stable id from your data as the key.',
+    'With index keys, React thinks you removed the last row and renamed the other two. Each Row kept its old input, so the text you typed now sits next to the wrong label. Use an id from your data as the key.',
   shuffle:
     'With index keys, React matched rows by position, so every input stayed where it was and only the labels changed. The text you typed no longer belongs to its item. With ids, React moved the rows, inputs and all.',
 }
@@ -131,11 +131,11 @@ function commitCaption(action: Ch5Action, index: SideResult, id: SideResult): st
   if (index.wrong.length) {
     return (
       ERROR_CAPTION[action] ??
-      'With index keys, React kept each input by position while the labels changed, so typed text moved to the wrong rows. Use a stable id from your data as the key.'
+      'With index keys, React kept each input in the same position while the labels changed, so typed text ended up in the wrong rows. Use an id from your data as the key.'
     )
   }
   if (action === 'add')
-    return `Adding to the end is where index keys look fine: the old keys still point at the same items, so both lists create one row (${index.ops.length} and ${id.ops.length} DOM ops). Remove or reorder rows to see them disagree.`
+    return `When you add to the end, index keys look fine: the old keys still point at the same items, so both lists add one row (${index.ops.length} and ${id.ops.length} DOM ops). Remove or shuffle rows to see them behave differently.`
   return `Both lists matched every row to the same item, so every note stayed with its row.`
 }
 
@@ -180,7 +180,7 @@ export const ch5Keys: Scenario<Ch5Params, Ch5Data> = ({ before, after, action })
     domOps: [],
     data: at('reconciled'),
     caption:
-      'Both lists rendered the same new rows. React matches each one to an old Row with the same key: by position on the left, by item on the right. A match keeps its Row, and its input.',
+      'Both lists rendered the same new rows. React matches each one to an old Row with the same key: by position on the left, by item on the right. A matched Row keeps its input.',
   })
   log.push({ text: `commit: ${index.ops.length} DOM ops by index, ${id.ops.length} by id`, tone: index.wrong.length ? 'error' : 'commit' })
   steps.push({

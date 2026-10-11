@@ -15,7 +15,7 @@ export function LoopMap() {
             style={{ background: alpha(C[phase], 8), border: `1px solid ${alpha(C[phase], 35)}` }}
           >
             <div className="flex flex-col gap-1.5">
-              <span className="flex items-center gap-2 font-mono text-xs leading-none font-semibold tracking-[0.08em] uppercase" style={{ color: C[phase] }}>
+              <span className="flex items-center gap-2 font-mono text-xs leading-none font-semibold" style={{ color: C[phase] }}>
                 <span className="size-2 rounded-[2px]" style={{ background: C[phase] }} aria-hidden />
                 {PHASE_LABEL[phase]}
               </span>
@@ -55,13 +55,13 @@ export function Myths() {
         {MYTHS.map(({ myth, fact }) => (
           <div key={myth} className="flex flex-col gap-2 bg-raised px-[18px] py-4">
             <span className="flex gap-2.5 text-[15px] leading-[1.45] text-text-secondary">
-              <span className="flex-none font-mono text-[10.5px] leading-[21px] font-medium tracking-[0.06em] uppercase" style={{ color: C.error }}>
+              <span className="flex-none font-mono text-xs leading-[21px] font-medium" style={{ color: C.error }}>
                 Myth
               </span>
               <s className="decoration-text-gutter">{myth}</s>
             </span>
             <span className="flex gap-2.5 text-[15px] leading-normal text-text-strong">
-              <span className="w-[34px] flex-none font-mono text-[10.5px] leading-[22px] font-medium tracking-[0.06em] uppercase" style={{ color: C.commit }}>
+              <span className="w-[34px] flex-none font-mono text-xs leading-[22px] font-medium" style={{ color: C.commit }}>
                 Fact
               </span>
               <span>{fact}</span>

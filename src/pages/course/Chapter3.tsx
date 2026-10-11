@@ -25,18 +25,19 @@ export function Chapter3() {
     <ChapterSection n={3}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why={'"It re-rendered" sounds expensive and vague. It gets much clearer once you see what a render actually produces: plain objects.'}
+        why={'"It re-rendered" sounds slow and unclear. It makes more sense once you see what a render really makes: plain JavaScript objects.'}
         what={
           <>
-            JSX is shorthand for function calls. Each call returns a <b className="term">React element</b>: a small object with a type, props and children that
-            describes one piece of UI. <b className="term">Rendering</b> means calling your component to get a tree of these objects. Nothing touches the DOM yet.
+            JSX is a short way to write function calls. Each call returns a <b className="term">React element</b>: a small object with a type, props and
+            children that describes one piece of UI. <b className="term">Rendering</b> means calling your component to get a tree of these objects. The page
+            does not change yet.
           </>
         }
-        how={'Change count. The JSX stays the same; only the value inside the objects changes. Same input, same output: that\'s what "UI is a function of state" means.'}
+        how={'Change count. The JSX stays the same; only the value inside the objects changes. Same state in, same UI out: that is what "UI is built from state" means.'}
       />
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-5">
         <div className="panel flex flex-wrap items-center gap-3.5 px-3.5 py-2.5">
-          <span className="font-mono text-[11px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">State</span>
+          <span className="font-mono text-xs leading-none font-medium text-text-label">State</span>
           <div className="flex items-center gap-0.5 rounded-button border border-border bg-bg p-0.5" role="group" aria-label="count">
             <button type="button" className={stepBtn} onClick={() => setCount((c) => c - 1)} aria-label="Decrease count">
               −
@@ -53,7 +54,7 @@ export function Chapter3() {
             <span className="size-[7px] rounded-full bg-text-faint" aria-hidden />0 DOM operations · render only made objects
           </span>
         </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-5">
           <Panel title="1 · What you write" meta="JSX">
             <CodePane code={CH3_JSX} activeLine={5} phase="render" size="sm" label="Counter.jsx" />
           </Panel>

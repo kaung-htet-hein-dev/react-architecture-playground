@@ -12,7 +12,7 @@ const info = CHAPTERS[9]
 function SiteFooter() {
   return (
     <footer className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-4 border-t border-divider px-10 pt-12 pb-20 max-md:px-4">
-      <span className="text-sm text-text-label">Render, Commit, Repeat · built for developers who already write React</span>
+      <span className="text-sm text-text-label">React Internal · for developers who already use React</span>
       <Link to="/playground" className="flex h-10 items-center rounded-button bg-accent px-4 text-sm font-semibold text-accent-ink hover:brightness-106">
         Try it all in the Playground →
       </Link>
@@ -27,7 +27,7 @@ function SiteFooter() {
 export function Chapter10() {
   return (
     <>
-      <ChapterSection n={10}>
+      <ChapterSection n={10} last>
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-8">
             <div className="flex max-w-copy flex-col gap-3.5">

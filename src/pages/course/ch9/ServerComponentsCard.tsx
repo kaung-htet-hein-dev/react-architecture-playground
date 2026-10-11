@@ -3,7 +3,7 @@ import { VersionChip } from '../../../components/ui/VersionChip'
 import { CH9_CODE } from '../../../content/codeSamples'
 import { C } from '../../../sim/colors'
 
-const COL_LABEL = 'flex items-center gap-2 px-3.5 pt-3 font-mono text-[10.5px] leading-none font-medium tracking-[0.06em] uppercase'
+const COL_LABEL = 'flex items-center gap-2 px-3.5 pt-3 font-mono text-xs leading-none font-medium'
 const BOX = 'flex flex-col gap-1.5 rounded-[7px] border border-border bg-raised px-3 py-2.5 font-mono text-xs leading-normal text-text-node'
 
 /** The wide chapter-9 card: server code · what crosses the network · browser code. */
@@ -14,9 +14,9 @@ export function ServerComponentsCard() {
         <div className="flex max-w-[760px] flex-col gap-2">
           <h3 className="m-0 text-[17px] font-semibold text-text-heading">Server Components</h3>
           <p className="m-0 text-sm leading-[1.55] text-text-prose">
-            A <b className="term">Server Component</b> runs on the server, at build or request time, and its code never ships to the browser. Only components
-            marked 'use client' run in the browser, and only they can use state, effects and event handlers. Before, the whole page was client code:
-            download the JS, render, then fetch data in an effect.
+            A <b className="term">Server Component</b> runs on the server, when the app is built or when a page is requested. Its code is never sent to the
+            browser. Only components marked 'use client' run in the browser, and only they can use state, effects and event handlers. Before, the whole page
+            ran in the browser: download the JS, render, then fetch data in an effect.
           </p>
         </div>
         <VersionChip id="server-components" />
@@ -30,12 +30,12 @@ export function ServerComponentsCard() {
           <CodePane code={CH9_CODE.server} size="sm" activeLine={3} phase="render" label="ProductPage.jsx" />
         </div>
         <div className="flex flex-col gap-2.5 border-r border-divider px-4 py-3.5">
-          <span className="font-mono text-[10.5px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">What crosses the network</span>
+          <span className="font-mono text-xs leading-none font-medium text-text-label">What crosses the network</span>
           <div className={BOX}>
             <span className="text-text-label">rendered result</span>
             <span>&lt;h1&gt;Blue enamel mug&lt;/h1&gt;</span>
             <span>
-              &lt;AddToCart productId="42" /&gt; <span style={{ color: C.trigger }}>← client reference</span>
+              &lt;AddToCart productId="42" /&gt; <span style={{ color: C.trigger }}>← points to a client component</span>
             </span>
           </div>
           <div className={BOX}>

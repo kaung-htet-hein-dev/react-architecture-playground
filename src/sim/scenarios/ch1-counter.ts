@@ -30,7 +30,7 @@ export const CH1_ERROR_CODE = CH1_CODE.replace('{() => setCount(count + 1)}', '{
 export const CH1_FRAME: Block[] = [
   { kind: 'trigger', width: 7, label: 'event' },
   { kind: 'render', width: 18, label: 'render Counter' },
-  { kind: 'reconcile', width: 10, label: 'diff' },
+  { kind: 'reconcile', width: 10, label: 'compare' },
   { kind: 'commit', width: 10, label: 'commit' },
   { kind: 'idle', label: 'browser is free' },
   { kind: 'paint', width: 16, label: 'paint' },
@@ -89,7 +89,7 @@ function okTrace() {
     tree: tree(root, { counter: { trigger: true, tag: 'state' } }),
     treeNote: '1 update queued',
     log: row(`${queued.text} → queue update on ${queued.component}`, 'trigger'),
-    caption: "setCount doesn't change count. It adds an update to Counter's queue and asks React to schedule a render.",
+    caption: "setCount doesn't change count right away. It adds an update to Counter's queue and asks React to render again soon.",
   })
 
   // Render + commit through the model; the remaining steps read its events.
@@ -120,7 +120,7 @@ function okTrace() {
   })
 
   // 4 · Counter returns elements: div with button and p.
-  b.step({ phase: 'render', activeLine: 7, timeline: at(24), tree: renderTree(), log: row('returns <div> with <button> and <p>', 'render'), caption: 'Counter returned a fresh description: a <div> with the <button> and the <p>. Nothing on screen has changed yet.' })
+  b.step({ phase: 'render', activeLine: 7, timeline: at(24), tree: renderTree(), log: row('returns <div> with <button> and <p>', 'render'), caption: 'Counter returned a new description: a <div> with the <button> and the <p>. Nothing on screen has changed yet.' })
 
   // 5 · Reconcile: only the text inside <p> differs.
   const diff = eventsOf(renderEvents, 'complete').find((e) => !e.created && e.changes.length)
@@ -142,7 +142,7 @@ function okTrace() {
     preview: { values: { count: shownCount(root) }, highlight: ['count'] },
     domOps: ops,
     log: row(`p.firstChild.nodeValue = "${write?.value ?? ''}"`, 'commit'),
-    caption: 'React found one difference, the text inside <p>, so the commit is a single DOM write. The <button> and the <div> are left exactly as they were.',
+    caption: 'React found one difference, the text inside <p>, so the commit makes just one DOM change. The <button> and the <div> are not touched.',
   })
 
   // 7 · The browser paints.
@@ -153,7 +153,7 @@ function okTrace() {
     timeline: at(100),
     preview: { values: { count: shownCount(root) } },
     log: row('browser paints the frame', 'paint'),
-    caption: "That's the whole loop: one click, one render of Counter, one text change, one painted frame. Every chapter after this zooms into one of these steps.",
+    caption: "That's the whole loop: one click, one render of Counter, one text change, one new frame on screen. Each chapter after this looks closer at one of these steps.",
   })
   root.flush()
   return b.build()
@@ -203,7 +203,7 @@ function errorTrace() {
     treeNote: 'render 2',
     timeline: { playhead: 12, blocks: CH1_FRAME },
     log: { text: 'update queued during render → render again', tone: 'render' },
-    caption: 'setCount ran during render, which asked for another render, which ran it again.',
+    caption: 'setCount ran during render. That asked for another render, which ran setCount again.',
   })
   b.step({
     phase,
@@ -213,7 +213,7 @@ function errorTrace() {
     treeNote: `render ${renders}`,
     timeline: { playhead: 14, blocks: CH1_FRAME },
     log: { text: `… ${renders - 2} more renders, no commit`, tone: 'render' },
-    caption: 'Every render queues one more update, so React keeps calling Counter and never gets to compare or commit anything.',
+    caption: 'Every render adds one more update, so React keeps calling Counter and never gets to compare or commit anything.',
   })
   b.step({
     phase,

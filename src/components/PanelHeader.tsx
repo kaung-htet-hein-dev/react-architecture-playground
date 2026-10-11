@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 export interface PanelHeaderProps {
-  /** Mono uppercase label on the left. */
+  /** Mono label on the left. */
   label: ReactNode
   /** Meta on the right (e.g. phase label, "1 DOM op"). */
   meta?: ReactNode
@@ -19,7 +19,7 @@ export function PanelHeader({ label, meta, metaColor, height = 40, borderTop, cl
   return (
     <div
       className={`panel-header flex-none ${borderTop ? 'border-t border-t-divider' : ''} ${className}`}
-      style={{ height, fontSize: height === 30 ? 10.5 : undefined, padding: height === 30 ? '0 12px' : undefined }}
+      style={{ height, fontSize: height === 30 ? 12 : undefined, padding: height === 30 ? '0 12px' : undefined }}
     >
       <span className="min-w-0 truncate">{label}</span>
       {meta != null && meta !== '' && (

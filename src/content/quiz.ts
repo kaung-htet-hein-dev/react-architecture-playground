@@ -17,12 +17,12 @@ export const QUIZ: readonly QuizQuestion[] = [
     options: [
       { key: 'a', text: 'Immediately, on the line where setCount runs.' },
       { key: 'b', text: 'The next time a useEffect runs.' },
-      { key: 'c', text: 'After React renders, commits the change to the DOM and the browser paints.' },
+      { key: 'c', text: 'After React renders, updates the DOM, and the browser draws the screen.' },
       { key: 'd', text: 'Only after the whole page re-renders.' },
     ],
     answer: 'c',
     explain:
-      'setCount only queues an update. React renders Counter again, compares the result with the last one, writes the one changed text node during commit, and the browser paints the next frame.',
+      'setCount only queues an update. React renders Counter again, compares the result with the last one, changes the one text that is different, and then the browser draws the next frame.',
   },
   {
     q: 'count is 0. A click handler calls setCount(count + 1) three times. What does the next render see?',
@@ -40,16 +40,16 @@ export const QUIZ: readonly QuizQuestion[] = [
     q: "A parent re-renders and passes style={{ color: 'red' }} to a child wrapped in memo. Does the child re-render?",
     options: [
       { key: 'a', text: 'No. The props look the same, so memo skips it.' },
-      { key: 'b', text: 'Yes. The object is new on every render, so Object.is says the props changed.' },
+      { key: 'b', text: 'Yes. It is a new object on every render, so Object.is says the props changed.' },
       { key: 'c', text: 'Only in development, because of StrictMode.' },
       { key: 'd', text: 'Only if the child has its own state.' },
     ],
     answer: 'b',
     explain:
-      "Each render creates a new { color: 'red' } object. memo compares props with Object.is, and two different objects are never the same, even with identical contents. Move the object outside the component, or useMemo it.",
+      "Each render makes a new { color: 'red' } object. memo compares props with Object.is, and two different objects are never equal, even if they look the same. Move the object outside the component, or wrap it in useMemo.",
   },
   {
-    q: 'A list uses key={index} and each row has an uncontrolled <input>. You type in the first row, then delete the first item. What happens to your text?',
+    q: 'A list uses key={index}, and each row has its own <input> (not controlled by state). You type in the first row, then delete the first item. What happens to your text?',
     options: [
       { key: 'a', text: 'It disappears with the deleted row.' },
       { key: 'b', text: 'React refuses to render and warns about keys.' },
@@ -58,19 +58,19 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'd',
     explain:
-      "After the delete, key 0 still exists, so React keeps the first row's fiber and its DOM input and only updates the label. The last row is the one removed. A stable id as the key keeps the text with the right item.",
+      "After the delete, key 0 still exists, so React keeps the first row and its input, and only changes the label. React removes the last row instead. Using an id from your data as the key keeps the text with the right item.",
   },
   {
     q: "Why can't you call useState inside an if statement?",
     options: [
       { key: 'a', text: 'Conditional hooks are slower to run.' },
       { key: 'b', text: 'Hooks only work at the top of a file.' },
-      { key: 'c', text: 'React matches hooks to slots by call order, so skipping one shifts every hook after it.' },
+      { key: 'c', text: 'React matches hooks by call order, so skipping one moves every hook after it to the wrong place.' },
       { key: 'd', text: "State can't depend on props." },
     ],
     answer: 'c',
     explain:
-      "A fiber keeps its hooks as a list. The first hook call reads slot 1, the second slot 2, and so on. If a call is skipped, every later hook reads another hook's slot.",
+      "React keeps each component's hooks in a list. The first hook call reads slot 1, the second reads slot 2, and so on. If a call is skipped, every hook after it reads the wrong slot.",
   },
   {
     q: 'A click updates state. In what order do useLayoutEffect, the browser paint and useEffect happen?',
@@ -82,7 +82,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'a',
     explain:
-      'Commit writes the DOM, then layout effects run before the browser paints, so they can measure without a flicker. Passive effects (useEffect) run after paint.',
+      'Commit changes the DOM. Then useLayoutEffect runs before the browser draws, so it can measure things without a flicker. useEffect runs after the screen is drawn.',
   },
   {
     q: 'setFilter is wrapped in startTransition. The user types another letter while the list is still rendering. What does React do?',
@@ -94,7 +94,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'd',
     explain:
-      'A transition is low priority, and React checks for more urgent work between components. The typed letter wins, the stale list render is thrown away, and React starts again with the newest filter.',
+      'A transition is not urgent, and React checks for urgent work between components. The typed letter goes first, the old list render is thrown away, and React starts again with the newest filter.',
   },
   {
     q: 'A Server Component imports a database client and renders a client component. What JavaScript does the browser download?',
@@ -106,7 +106,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'b',
     explain:
-      "Server Component code never ships to the browser. The browser receives the rendered result plus a reference to each client component, and downloads only those client components' code.",
+      "Server Component code is never sent to the browser. The browser gets the rendered result plus a pointer to each client component, and downloads only the code for those client components.",
   },
 ]
 

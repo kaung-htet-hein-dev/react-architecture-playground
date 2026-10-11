@@ -10,33 +10,25 @@ export interface ChapterNavProps {
   touch?: boolean
 }
 
-/** "CHAPTERS · NN / 10" header with its 3px progress bar. */
+/** "Chapters · NN / 10" header above the chapter list. */
 export function ChapterProgress({ current }: { current: number }) {
   return (
-    <div className="flex flex-col gap-2.5 px-2">
-      <div className="flex items-baseline justify-between">
-        <span className="label">Chapters</span>
-        <span className="font-mono text-[11.5px] leading-none font-medium text-text-secondary">
-          {pad2(current)} / {CHAPTER_COUNT}
-        </span>
-      </div>
-      <span className="relative block h-[3px] rounded-sm bg-border" aria-hidden>
-        <span
-          className="absolute inset-y-0 left-0 rounded-sm bg-text-strong transition-[width] duration-300"
-          style={{ width: `${(current / CHAPTER_COUNT) * 100}%` }}
-        />
+    <div className="flex items-baseline justify-between px-2">
+      <span className="text-[15px] leading-none font-semibold text-text-strong">Chapters</span>
+      <span className="font-mono text-xs leading-none text-text-label">
+        {pad2(current)} / {CHAPTER_COUNT}
       </span>
     </div>
   )
 }
 
 /**
- * The 10 chapter links: `22px | 1fr | auto` grid with number, title and phase dots.
- * Current: raised, heading text, 500. Done: secondary text. Upcoming: label text.
+ * The 10 chapter links (reactnative.dev menu): `20px | 1fr | auto` grid with number, title and
+ * phase dots. Current: primary text on a faint brand tint. Others: muted text, light hover.
  */
 export function ChapterNav({ current, onNavigate, touch }: ChapterNavProps) {
   return (
-    <nav aria-label="Chapters" className="flex flex-col gap-0.5">
+    <nav aria-label="Chapters" className="flex flex-col gap-1">
       {CHAPTERS.map((c) => {
         const isCur = c.n === current
         const done = c.n < current
@@ -47,19 +39,11 @@ export function ChapterNav({ current, onNavigate, touch }: ChapterNavProps) {
             href={`#${c.id}`}
             onClick={onNavigate}
             aria-current={isCur ? 'location' : undefined}
-            className={`grid grid-cols-[22px_minmax(0,1fr)_auto] items-center gap-2 rounded-[7px] px-2 py-1.5 transition-colors hover:bg-panel ${touch ? 'min-h-11' : 'min-h-[34px]'}`}
-            style={{
-              background: isCur ? C.panelHi : undefined,
-              color: isCur ? C.heading : done ? C.secondary : C.label,
-            }}
+            className={`grid grid-cols-[20px_minmax(0,1fr)_auto] items-start gap-2.5 rounded-control px-2 py-2 text-[15px] leading-[1.25] font-medium transition-colors ${isCur ? 'bg-link/8 text-primary' : `hover:bg-white/5 ${done ? 'text-text-strong' : 'text-text-secondary'}`} ${touch ? 'min-h-11' : ''}`}
           >
-            <span className="font-mono text-[11px] leading-none font-medium" style={{ color: isCur ? C.heading : C.faint }}>
-              {pad2(c.n)}
-            </span>
-            <span className="text-[13.5px] leading-[1.3]" style={{ fontWeight: isCur ? 500 : 400 }}>
-              {c.title}
-            </span>
-            <span className="flex gap-[3px]" aria-hidden>
+            <span className="pt-[3px] font-mono text-xs leading-none">{pad2(c.n)}</span>
+            <span>{c.title}</span>
+            <span className="flex gap-[3px] pt-[7px]" aria-hidden>
               {dots.map((p) => (
                 <span key={p} className="size-1.5 rounded-full" style={{ background: C[p], opacity: isCur ? 1 : 0.45 }} />
               ))}

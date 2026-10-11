@@ -135,7 +135,7 @@ const Card = ({ children, className = '' }: { children: ReactNode; className?: s
 )
 
 const SubLabel = ({ children }: { children: ReactNode }) => (
-  <span className={`${mono} text-[11px] font-medium tracking-[0.06em] text-text-label uppercase`}>{children}</span>
+  <span className={`${mono} text-xs font-medium text-text-label`}>{children}</span>
 )
 
 function TypeRow({ spec, children }: { spec: string; children: ReactNode }) {
@@ -159,7 +159,7 @@ export default function DevComponents() {
   return (
     <div className="mx-auto box-content flex max-w-[1280px] flex-col gap-16 px-12 pt-14 pb-24">
       <header className="flex flex-col gap-2.5">
-        <span className="label">Render, Commit, Repeat · component sheet</span>
+        <span className="label">React Internal · component sheet</span>
         <h1 className="m-0 text-5xl leading-none font-semibold tracking-[-0.035em] text-text-heading">Tokens and components</h1>
         <p className="m-0 max-w-[720px] text-[17px] leading-[1.7] text-text-prose">
           Dark, low-chroma surfaces so the four phase colors carry all the meaning. Syntax highlighting is deliberately muted for the same reason. Every color, size and state here is what the guide, the Playground and the mobile layouts use.
@@ -180,7 +180,7 @@ export default function DevComponents() {
                 <span className="flex-1 bg-panel" style={{ boxShadow: `inset 0 0 0 1px ${alpha(C[k], 60)}` }} />
               </div>
               <div className="flex flex-col gap-1 px-3.5 py-3">
-                <span className={`${mono} text-xs font-semibold tracking-[0.06em] uppercase`} style={{ color: C[k] }}>{name}</span>
+                <span className={`${mono} text-xs font-semibold`} style={{ color: C[k] }}>{name}</span>
                 <span className={`${mono} text-[11.5px] text-text-secondary`}>{v}</span>
                 <span className="text-[13px] leading-[1.45] text-text-prose">{use}</span>
               </div>
@@ -202,7 +202,7 @@ export default function DevComponents() {
       <Section label="Type" title="Type">
         <p className="m-0 -mt-2 text-[14.5px] text-text-secondary">System sans for prose, system mono for code, labels and anything that came from React.</p>
         <div className="flex flex-col border-t border-divider">
-          <TypeRow spec="Display · 84/0.96 · 600 · −4.5%"><span className="display">Render, Commit</span></TypeRow>
+          <TypeRow spec="Display · 84/0.96 · 600 · −4.5%"><span className="display">React Internal</span></TypeRow>
           <TypeRow spec="Chapter title · 44/1.06 · 600"><span className="h2">What re-renders and why</span></TypeRow>
           <TypeRow spec="Mobile title · 30/1.08 · 600"><span className="text-[30px] leading-[1.08] font-semibold tracking-[-0.03em] text-text-heading">Fiber and hooks</span></TypeRow>
           <TypeRow spec="Section · 24 · 600"><span className="h3">Common myths</span></TypeRow>
@@ -334,7 +334,7 @@ export default function DevComponents() {
             ))}
             <span className="mt-1.5"><SubLabel>Mobile</SubLabel></span>
             <div className="w-[390px] max-w-full overflow-hidden rounded-panel border border-border">
-              <MobileBar current={4} phases={['render']} onOpenChapters={noop} sticky={false} />
+              <MobileBar current={4} onOpenChapters={noop} sticky={false} />
             </div>
           </Card>
           <Card>

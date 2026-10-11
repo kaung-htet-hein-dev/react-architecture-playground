@@ -9,15 +9,15 @@ export interface ChapterSummary {
 }
 
 export const SUMMARIES: readonly ChapterSummary[] = [
-  { n: 1, phase: 'trigger', text: 'A click becomes a queued update, a render, a diff, one DOM write and a painted frame.' },
-  { n: 2, phase: 'render', text: 'React trades some extra work per update for not having to track every DOM node yourself.' },
-  { n: 3, phase: 'render', text: 'A render returns plain objects that describe the UI; it never touches the DOM.' },
-  { n: 4, phase: 'render', text: 'State changes re-render that component and everything below it, unless memo stops it.' },
-  { n: 5, phase: 'reconcile', text: 'Keys tell React which old element a new one is, so state stays with the right item.' },
-  { n: 6, phase: 'render', text: "Hooks are slots on a fiber, matched by call order, which is why they can't be conditional." },
-  { n: 7, phase: 'commit', text: 'Commit writes the DOM; layout effects run before paint, passive effects after.' },
-  { n: 8, phase: 'render', text: 'Transitions let React pause, drop and restart low-priority renders so input stays responsive.' },
-  { n: 9, phase: 'commit', text: 'React 19 moves pending, optimistic and server work out of your effects and into React.' },
+  { n: 1, phase: 'trigger', text: 'A click becomes a queued update, then a render, a compare, one DOM change and a new frame on screen.' },
+  { n: 2, phase: 'render', text: 'React does a bit of extra work on each update so you don\'t have to update every DOM node yourself.' },
+  { n: 3, phase: 'render', text: 'A render returns plain objects that describe the UI. It never changes the page.' },
+  { n: 4, phase: 'render', text: 'A state change re-renders that component and everything below it, unless memo stops it.' },
+  { n: 5, phase: 'reconcile', text: 'Keys tell React which new item is which old item, so state stays with the right item.' },
+  { n: 6, phase: 'render', text: "React stores hooks in a list and matches them by call order, so you can't put them inside an if." },
+  { n: 7, phase: 'commit', text: 'Commit changes the DOM. useLayoutEffect runs before the screen is drawn, useEffect runs after.' },
+  { n: 8, phase: 'render', text: 'Transitions let React pause, drop and restart non-urgent renders, so typing stays fast.' },
+  { n: 9, phase: 'commit', text: 'React 19 handles loading states, optimistic updates and server work for you, so you need fewer effects.' },
 ]
 
 /** Chapter 10 · the loop map: each phase with the chapters pinned to it (`lists().loop`). */
@@ -30,7 +30,7 @@ export interface LoopMapPhase {
 export const LOOP_MAP: readonly LoopMapPhase[] = [
   {
     phase: 'trigger',
-    desc: 'An update is queued with a priority.',
+    desc: 'An update is added to a queue, with a priority.',
     chips: [
       { n: 1, label: 'One click' },
       { n: 8, label: 'Priorities' },
@@ -39,7 +39,7 @@ export const LOOP_MAP: readonly LoopMapPhase[] = [
   },
   {
     phase: 'render',
-    desc: 'Components run and return elements.',
+    desc: 'Your components run and return elements.',
     chips: [
       { n: 3, label: 'Elements' },
       { n: 4, label: 'Re-renders' },
@@ -49,7 +49,7 @@ export const LOOP_MAP: readonly LoopMapPhase[] = [
   },
   {
     phase: 'reconcile',
-    desc: 'New elements are matched to old ones.',
+    desc: 'React matches new elements to old ones.',
     chips: [
       { n: 1, label: 'Diff' },
       { n: 5, label: 'Keys' },
@@ -57,7 +57,7 @@ export const LOOP_MAP: readonly LoopMapPhase[] = [
   },
   {
     phase: 'commit',
-    desc: 'DOM writes, then effects, then the next frame.',
+    desc: 'React changes the DOM, runs effects, then the browser draws.',
     chips: [
       { n: 7, label: 'Effects' },
       { n: 9, label: 'Server and client' },

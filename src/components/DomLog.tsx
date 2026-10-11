@@ -26,7 +26,7 @@ export function DomLog({ entries, current = entries.length, placeholder = DEFAUL
   return (
     <div className={className}>
       {header && (
-        <div className="flex h-[34px] items-center justify-between border-t border-divider px-3.5 font-mono text-[11px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">
+        <div className="flex h-[34px] items-center justify-between border-t border-divider px-3.5 font-mono text-xs leading-none font-medium text-text-label">
           <span>Log</span>
           <span>step · phase</span>
         </div>
@@ -54,7 +54,7 @@ export function DomLog({ entries, current = entries.length, placeholder = DEFAUL
                 <span className="truncate" style={{ color: isErr ? C.error : isCur ? C.heading : C.prose }} title={r.text}>
                   {r.text}
                 </span>
-                <span className="text-[10px] tracking-[0.07em] uppercase" style={{ color: c }}>
+                <span className="text-xs" style={{ color: c }}>
                   {r.tag ?? r.tone}
                 </span>
               </li>

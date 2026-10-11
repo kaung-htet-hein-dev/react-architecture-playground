@@ -15,7 +15,7 @@ export interface TagProps {
   title?: string
 }
 
-/** Mono 10px uppercase-ready tag, radius 4. */
+/** Mono 11px tag, radius 4. */
 export function Tag({ children, tone = 'muted', variant = 'outline', className = '', title }: TagProps) {
   const c = tone === 'muted' ? C.nodeSkipFg : toneColor(tone)
   const style =
@@ -27,7 +27,7 @@ export function Tag({ children, tone = 'muted', variant = 'outline', className =
   return (
     <span
       title={title}
-      className={`inline-flex flex-none items-center rounded-tag font-mono text-[10px] leading-none font-medium tracking-[0.04em] whitespace-nowrap ${className}`}
+      className={`inline-flex flex-none items-center rounded-tag font-mono text-[11px] leading-none font-medium whitespace-nowrap ${className}`}
       style={style}
     >
       {children}

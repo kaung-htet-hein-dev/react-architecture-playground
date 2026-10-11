@@ -47,7 +47,7 @@ function columnStyle(status: SlotStatus): ColumnStyle {
 export function HookSlotRow({ title, titleColor, reads }: { title: string; titleColor: string; reads: readonly SlotRead[] }) {
   return (
     <div className="flex flex-col gap-2.5">
-      <span className="font-mono text-[10.5px] leading-none font-medium tracking-[0.08em] uppercase" style={{ color: titleColor }}>
+      <span className="font-mono text-xs leading-none font-medium" style={{ color: titleColor }}>
         {title}
       </span>
       <ol className="m-0 grid list-none grid-cols-3 gap-2 p-0" aria-label={title}>

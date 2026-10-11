@@ -33,7 +33,7 @@ export function ChapterDrawer({ open, onClose, current }: ChapterDrawerProps) {
     >
       <div className="flex h-full flex-col gap-3.5 overflow-y-auto px-3 pt-4 pb-6">
         <div className="flex items-center justify-between pl-2">
-          <span className="text-sm font-semibold text-text-heading">Render, Commit, Repeat</span>
+          <span className="text-sm font-semibold text-text-heading">React Internal</span>
           <button
             type="button"
             onClick={onClose}

@@ -37,7 +37,7 @@ function Pane({
       style={{ borderColor: border, opacity: p.role === 'alternate' ? 0.6 : 1 }}
     >
       <div className="flex h-9 flex-none items-center justify-between gap-2 border-b border-divider px-3">
-        <span key={role.label} className="pg-label-in truncate font-mono text-[11px] font-medium tracking-[0.06em] text-text-strong uppercase">
+        <span key={role.label} className="pg-label-in truncate font-mono text-xs font-medium text-text-strong">
           {role.label}
         </span>
         <span key={role.sub} className="pg-label-in truncate font-mono text-[11px] text-text-label">

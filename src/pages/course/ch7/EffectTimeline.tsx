@@ -23,7 +23,7 @@ export function EffectTimeline({ blocks }: { blocks: readonly EffectBlock[] }) {
             className="flex min-w-0 flex-col gap-2 transition-opacity duration-200 max-lg:min-w-[150px]"
             style={{ flex: b.on ? 2 : 1.4, opacity: b.reached ? 1 : 0.35 }}
           >
-            <span className="truncate font-mono text-[10.5px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">{b.name}</span>
+            <span className="truncate font-mono text-xs leading-none font-medium text-text-label">{b.name}</span>
             <div className="flex min-h-[54px] items-center rounded-[7px] px-3 font-mono text-xs leading-[1.35] font-medium" style={blockStyle(b)}>
               {b.text}
             </div>

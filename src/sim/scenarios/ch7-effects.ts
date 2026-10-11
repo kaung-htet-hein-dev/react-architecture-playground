@@ -183,8 +183,8 @@ export const ch7Effects: Scenario<Ch7Params, Ch7Data> = ({ deps, upd }) => {
   const finalCaption = r
     ? mount
       ? 'First render: every effect runs once after commit. The layout effect runs before paint; the subscription waits until after.'
-      : 'The browser just painted. React compared the dependency array with last render, found a change, and ran the old cleanup before the new effect.'
-    : 'The browser just painted. Every value in the dependency array is the same as last render (Object.is), so React skips the effect and its cleanup.'
+      : 'The browser just drew the screen. React compared the dependency array with last render, found a change, and ran the old cleanup before the new effect.'
+    : 'The browser just drew the screen. Every value in the dependency array is the same as last render, so React skips the effect and its cleanup.'
 
   const code = ch7Code(deps)
   const b = stepBuilder<Ch7Data>({
@@ -197,13 +197,13 @@ export const ch7Effects: Scenario<Ch7Params, Ch7Data> = ({ deps, upd }) => {
   })
   const steps: { phase: 'render' | 'commit' | 'paint'; line: number; caption: string }[] = [
     { phase: 'render', line: 1, caption: mount ? 'React calls Profile for the first time and gets back the <h2> it should show.' : `React calls Profile again because ${upd === 'count' ? 'its count state' : 'its user prop'} changed.` },
-    { phase: 'commit', line: 13, caption: mount ? 'Commit: React inserts the <h2> and <span> into the DOM in one go. Nothing is on screen yet.' : `Commit: React writes the ${ops.length === 1 ? 'one change' : 'changes'} to the DOM in one go. Nothing is on screen yet.` },
+    { phase: 'commit', line: 13, caption: mount ? 'Commit: React adds the <h2> and <span> to the DOM at once. The user can\'t see them yet.' : `Commit: React makes the ${ops.length === 1 ? 'one change' : 'changes'} to the DOM at once. The user can't see it yet.` },
     {
       phase: 'commit',
       line: run.layoutRan ? 5 : 6,
-      caption: run.layoutRan ? 'Layout effects run right after the DOM writes and before paint, so measureHeader sees the new layout without a flicker.' : 'The layout effect has [] deps, which match last render, so React skips it.',
+      caption: run.layoutRan ? 'Layout effects run right after the DOM changes and before the screen is drawn, so measureHeader sees the new layout without a flicker.' : 'The layout effect has [] deps, which match last render, so React skips it.',
     },
-    { phase: 'paint', line: 0, caption: 'The browser paints. This is the first moment the user sees the update.' },
+    { phase: 'paint', line: 0, caption: 'The browser draws the screen. This is the first moment the user sees the update.' },
     { phase: 'commit', line: r ? 9 : 11, caption: finalCaption },
   ]
   steps.forEach((s, i) =>

@@ -3,8 +3,9 @@
  * (bg-panel, text-heading, border-render/60, ...) and runtime styles read them through `C`
  * in src/sim/colors.ts as var(--color-*). `static` keeps every variable in the output.
  *
- * Values come from doc/README.md ("Theme", "Phase colors", "Neutrals", "Syntax palette") and
- * the design files in doc/design. Phase colors are fixed: never reuse one for another meaning.
+ * Surfaces, text, accent, syntax and type follow reactnative.dev's dark theme (Docusaurus/Infima),
+ * shared with the rn-architecture course. Phase colors are this guide's own and fixed: never
+ * reuse one for another meaning.
  */
 @theme static {
   /* Phases: same lightness and chroma in OKLCH, only the hue changes */
@@ -49,39 +50,37 @@
   --color-commit-ink: #eefaf2;
   --color-reconcile-pressed-ink: #f2ecfb;
   /* Dark text on a phase-colored button (play button, order badge) */
-  --color-on-phase: #23272f;
-
-  /* Accent (not a phase): primary buttons and links */
-  --color-accent: #149eca; /* react.dev brand-dark */
-  --color-accent-ink: #ffffff;
-  --color-link: #149eca;
-
-  /* Surfaces */
-  --color-bg: #23272f; /* react.dev wash-dark */
-  --color-raised: #282c35;
-  --color-panel: #2b303a;
-  --color-panel-hi: #343a46;
-  --color-control: #343a46; /* react.dev secondary-button-dark */
-  --color-control-hover: #404756;
-  --color-divider: #343a46;
-  --color-row-divider: #262a32; /* rows inside a list panel (ch4 "Why each one rendered") */
-  --color-border: #404756;
-  --color-border-strong: #4e5769;
-  --color-topbar: rgb(35 39 47 / 0.88);
-  --color-well: #1c1f26; /* preset dropdown button */
-  --color-track: #404756; /* toggle off, future scrubber ticks, selected speed */
-  --color-track-soft: #343a46; /* progress track on mobile, unlit mini bars, idle gap border */
-  --color-paint-block: #343a46; /* paint block in the one-frame timeline */
-
-  /* Tree nodes */
-  --color-node-idle-bg: #2b303a;
-  --color-node-idle-bd: #4e5769;
-  --color-node-idle-fg: #d0d4dd;
-  --color-node-skip-bd: #4e5769;
-  --color-node-skip-fg: #8b95ab;
-  --color-node-pending-edge: #343a46;
-
-  /* Live preview: the rendered app is a light surface */
+  --color-on-phase: #1b1b1d;
+  --color-accent: #58c4dc;
+  --color-logo: #58c4dc; /* --logo */
+  --color-accent-hover: #71d6ec; /* --home-button-primary-hover */
+  --color-accent-ink: #1b1b1d;
+  --color-link: #61dafb; /* --brand, prose links */
+  --color-link-hover: rgb(8 126 164 / 0.8); /* --ifm-color-primary-75, link underline */
+  --color-primary: #06bcee; /* --ifm-color-primary: active menu item, focus ring */
+  --color-btn-border: #4e5668; /* --home-button-secondary-border */
+  --color-btn-secondary-hover: #1f1f21; /* --home-button-secondary-hover */
+  --color-bg: #1b1b1d;
+  --color-raised: #20232a;
+  --color-panel: #242526;
+  --color-panel-hi: #282c34;
+  --color-control: #282c34;
+  --color-control-hover: #373940;
+  --color-divider: rgb(255 255 255 / 0.1);
+  --color-row-divider: rgb(255 255 255 / 0.06);
+  --color-border: rgb(225 227 230 / 0.15);
+  --color-border-strong: #4e5668;
+  --color-topbar: rgb(32 35 42 / 0.93);
+  --color-well: #151517;
+  --color-track: #373940;
+  --color-track-soft: #282c34;
+  --color-paint-block: #282c34;
+  --color-node-idle-bg: #242526;
+  --color-node-idle-bd: #4e5668;
+  --color-node-idle-fg: #dadde1;
+  --color-node-skip-bd: #4e5668;
+  --color-node-skip-fg: #858993;
+  --color-node-pending-edge: #373940;
   --color-preview: #f3f2ee;
   --color-preview-chrome: #e3e1db;
   --color-preview-dot: #c4c1b9;
@@ -102,39 +101,35 @@
   --color-preview-skeleton: #dedad2; /* skeleton bars (ch8) */
 
   /* Text */
-  --color-text-heading: #f6f7f9; /* react.dev gray-5 */
-  --color-text-strong: #ebecf0;
-  --color-text-node: #d0d4dd; /* control icons, idle node text, paused chip */
-  --color-text-code: #d0d4dd;
-  --color-text-prose: #d0d4dd;
-  --color-text-secondary: #bcc1cd; /* gray-30 */
-  --color-text-muted: #99a1b3; /* gray-40 */ /* punctuation, complete ticks */
-  --color-text-label: #99a1b3;
-  --color-text-faint: #78839b;
-  --color-text-gutter: #5e687e;
-  --color-dot-off: #4e5769; /* unlit loop dot, eyebrow rule */
+  --color-text-heading: #ffffff;
+  --color-text-strong: #e3e3e3;
+  --color-text-node: #dadde1;
+  --color-text-code: #e3e3e3;
+  --color-text-prose: #e3e3e3;
+  --color-text-secondary: #c0c1c4;
+  --color-text-muted: #c0c1c4;
+  --color-text-label: #858993;
+  --color-text-faint: #7f8497;
+  --color-text-gutter: #757575;
+  --color-dot-off: #4e5668;
+  --color-syn-keyword: #77b7d7;
+  --color-syn-string: #977cdc;
+  --color-syn-tag: #dfab5c;
+  --color-syn-component: #86d9ca;
+  --color-syn-api: #ffffff;
+  --color-syn-punct: #c0c1c4;
+  --color-syn-comment: #757575;
+  --color-syn-default: #ffffff;
+  --font-sans: 'Optimistic Display', system-ui, -apple-system, sans-serif;
+  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
-  /* Syntax: muted on purpose so phase colors carry the meaning */
-  --color-syn-keyword: oklch(76% 0.07 330);
-  --color-syn-string: oklch(81% 0.05 70);
-  --color-syn-tag: oklch(80% 0.05 215);
-  --color-syn-component: oklch(82% 0.05 215);
-  --color-syn-api: #f6f7f9;
-  --color-syn-punct: #99a1b3;
-  --color-syn-comment: #8b95ab;
-  --color-syn-default: #d0d4dd;
-
-  /* Type: react.dev stacks. Source Code Pro loads from Google Fonts; Optimistic Display falls back to system-ui */
-  --font-sans: 'Optimistic Display', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: 'Source Code Pro', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-
-  /* Radii: 4 tag · 6 control/node · 7-8 button · 10 panel · 12 large card · 24 phone */
+  /* Radii: 4 tag · 6 control/node · 9 button/card (--ifm-global-radius) · 10 panel · 24 phone */
   --radius-tag: 4px;
   --radius-control: 6px;
-  --radius-button: 8px;
-  --radius-pill: 9999px; /* react.dev buttons are fully rounded */
+  --radius-button: 9px;
+  --radius-pill: 9999px;
   --radius-panel: 10px;
-  --radius-card: 12px;
+  --radius-card: 9px;
   --radius-phone: 24px;
 
   /* Breakpoints (REQUIREMENTS §8): mobile ≤ 768 · tablet 769–1023 · desktop ≥ 1024.
@@ -143,11 +138,17 @@
   --breakpoint-lg: 1024px;
 
   /* Layout */
-  --spacing-topbar: 56px;
+  --spacing-topbar: 60px; /* --ifm-navbar-height */
   --spacing-mobilebar: 52px;
-  --spacing-sidebar: 232px;
-  --container-content: 1200px;
+  --spacing-sidebar: 256px;
+  --container-content: 1100px;
   --container-copy: 780px;
+
+  /* Type scale: reactnative.dev (Infima). Semibold is 500 there */
+  --text-base-rn: 17px; /* --ifm-font-size-base */
+  --leading-base-rn: 1.65; /* --ifm-line-height-base */
+  --leading-heading: 1.25; /* --ifm-heading-line-height */
+  --font-weight-semibold: 500;
 
   --shadow-dropdown: 0 12px 32px rgb(0 0 0 / 0.5);
 

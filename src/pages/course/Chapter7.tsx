@@ -61,21 +61,22 @@ export function Chapter7() {
     <ChapterSection n={7}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why={'"It flickers", "it runs twice", "it uses an old value": most effect bugs come from expecting an effect at a different moment than when it actually runs.'}
+        why={'"It flickers", "it runs twice", "it uses an old value": most effect bugs happen because the effect runs at a different time than you expected.'}
         what={
           <>
-            After render, React <b className="term">commits</b>: it applies the DOM changes in one go. <b className="term">Layout effects</b> run next, before the
-            browser paints, so you can measure and adjust without a flicker. <b className="term">Passive effects</b> (useEffect) run after paint. The dependency
-            array decides whether an effect runs: React compares each value with last render's using Object.is.
+            After render, React <b className="term">commits</b>: it makes all the DOM changes at once. <b className="term">Layout effects</b>{' '}
+            (useLayoutEffect) run next, before the browser draws the screen, so you can measure things and fix them without a flicker.{' '}
+            <b className="term">Passive effects</b> (useEffect) run after the screen is drawn. The dependency array decides if an effect runs: React compares
+            each value with the one from last render, using Object.is.
           </>
         }
-        how="Pick a dependency array and an update. The timeline shows what runs, left to right, and the table shows every combination at once."
+        how="Pick a dependency array and an update. The timeline shows what runs, from left to right. The table shows every choice at once."
       />
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-5">
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5 rounded-panel border border-border bg-panel px-3.5 py-2.5">
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="font-mono text-[11px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">Dependency array</span>
+            <span className="font-mono text-xs leading-none font-medium text-text-label">Dependency array</span>
             <Segmented
               label="Dependency array"
               editable
@@ -85,14 +86,14 @@ export function Chapter7() {
             />
           </div>
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="font-mono text-[11px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">Update</span>
+            <span className="font-mono text-xs leading-none font-medium text-text-label">Update</span>
             <Segmented label="Update" options={UPDATE_OPTIONS} value={upd} onChange={setUpd} className="[&_button]:font-sans" />
           </div>
         </div>
 
         <EffectTimeline blocks={d.blocks} />
 
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(380px,1fr))] gap-5">
           <Panel
             title="Code · Profile.jsx"
             meta={invalid ? 'use count, user or no array' : 'editable deps'}

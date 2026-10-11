@@ -264,10 +264,10 @@ export type Ch8Params = Record<string, never>
 
 const CAPTIONS = [
   "You typed 'r'. With plain setState, React must render all 5,000 rows before the input can show the letter. With a transition, the input updates at once and the list renders in small chunks.",
-  "You typed 'e'. On the left the main thread is still busy, so the keystroke waits. On the right React drops the half-done list, updates the input and starts the list again.",
-  "You typed 'a' while React was rendering the filtered list. The keystroke is urgent, so React drops the unfinished list render, updates the input, and starts the list again with the newer text. The old work never reaches the screen.",
-  "You typed 'c'. Same story: the transition gives way to the keystroke. On the left, the browser hasn't painted a single frame since 'r'.",
-  "You typed 't', the last letter. With nothing more to interrupt it, the transition can now run to the end.",
+  "You typed 'e'. On the left the browser is still busy, so the key press waits. On the right React drops the half-done list, updates the input and starts the list again.",
+  "You typed 'a' while React was rendering the filtered list. The key press is urgent, so React drops the unfinished list render, updates the input, and starts the list again with the newer text. The old work never shows on screen.",
+  "You typed 'c'. Same again: the transition lets the key press go first. On the left, the browser hasn't drawn a single frame since 'r'.",
+  "You typed 't', the last letter. Nothing else is coming, so the transition can now run to the end.",
 ]
 
 /** Chapter 8 trace: idle + one step per letter + the final commit. */

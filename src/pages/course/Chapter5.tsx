@@ -102,19 +102,19 @@ export function Chapter5() {
     <ChapterSection n={5}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why="You've seen the warning about each child needing a unique key. Using the index makes it go away, and most of the time nothing looks wrong. Then you delete a row and the wrong input keeps its text."
+        why="You have seen the warning that each child in a list needs a unique key. Using the index hides the warning, and most of the time nothing looks wrong. Then you delete a row, and the text you typed shows up in the wrong row."
         what={
           <>
-            <b className="term">Reconciliation</b> is React comparing the new element tree with the previous one to decide what to keep, update, create or remove.
-            In a list, the <b className="term">key</b> is how React matches a new element to an old one. Same key means same component: keep its state and its
-            DOM node.
+            <b className="term">Reconciliation</b> is React comparing the new element tree with the old one to decide what to keep, change, add or remove. In a
+            list, the <b className="term">key</b> tells React which new item is which old item. Same key means same component, so it keeps its state and its
+            place on the page.
           </>
         }
-        how="We typed a note into each row, then pressed Remove first. Both lists got the same new data. Compare what React matched on each side, and where the typed text ended up."
+        how="We typed a note into each row, then removed the first row. Both lists got the same new data. Compare how React matched the rows on each side, and where the typed text ended up."
       />
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-5">
         <div className="panel flex flex-wrap items-center gap-2 px-3.5 py-2.5">
-          <span className="mr-1.5 font-mono text-[11px] leading-none font-medium tracking-[0.06em] text-text-label uppercase">Both lists</span>
+          <span className="mr-1.5 font-mono text-xs leading-none font-medium text-text-label">Both lists</span>
           {ACTIONS.map((a) => {
             const on = a === run.action
             return (
@@ -135,7 +135,7 @@ export function Chapter5() {
             before: {labels(run.before)} → after: {labels(run.after)}
           </span>
         </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-5">
           {data &&
             (['index', 'id'] as const).map((k) => (
               <KeyList

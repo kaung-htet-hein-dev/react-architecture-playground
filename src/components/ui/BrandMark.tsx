@@ -1,16 +1,15 @@
 import { C } from '../../sim/colors'
 
-/** 2×2 grid of phase squares in trigger, render, commit, reconcile order. */
-export function BrandMark({ size = 7 }: { size?: number }) {
+/** React logo (atom: three orbits and a nucleus) in the logo color, `size` px square. */
+export function BrandMark({ size = 20 }: { size?: number }) {
   return (
-    <span
-      aria-hidden
-      className="grid flex-none gap-0.5"
-      style={{ gridTemplateColumns: `${size}px ${size}px` }}
-    >
-      {[C.trigger, C.render, C.commit, C.reconcile].map((c) => (
-        <span key={c} className="rounded-[2px]" style={{ width: size, height: size, background: c }} />
-      ))}
-    </span>
+    <svg aria-hidden viewBox="0 0 32 32" width={size} height={size} fill="none" className="flex-none">
+      <g style={{ stroke: C.logo }} strokeWidth="1.7">
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" />
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" transform="rotate(60 16 16)" />
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" transform="rotate(120 16 16)" />
+      </g>
+      <circle cx="16" cy="16" r="2.2" style={{ fill: C.logo }} />
+    </svg>
   )
 }

@@ -17,15 +17,15 @@ export function Chapter9() {
     <ChapterSection n={9}>
       <ChapterHeader n={info.n} title={info.title} eyebrow={info.eyebrow} />
       <WhyWhatHow
-        why="A lot of the React you've learned is code you wrote around React: pending flags, rollback logic, fetch-in-effect, memo everywhere. Recent versions absorb much of it."
-        what="Each card shows one pattern the old way and the new way. The loop underneath is the same: the new APIs just let React handle the triggering, waiting and memoizing for you."
-        how="Read the before, then the after, and look for what disappeared. The version label on each card is editable, so you can keep it accurate as React moves."
+        why="A lot of the React code you learned to write is extra work around React: loading flags, undo logic when a request fails, fetching data in effects, memo everywhere. New versions of React do much of this for you."
+        what="Each card shows one pattern the old way and the new way. The loop under it is the same. The new APIs let React handle starting updates, waiting for data and memoizing for you."
+        how="Read the before, then the after, and look for the code that is gone. You can edit the version label on each card to keep it correct as React changes."
       />
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(460px,100%),1fr))] gap-3">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(460px,100%),1fr))] gap-5">
         <BeforeNowCard title="Actions and form state" versionId="actions" before={CH9_CODE.actionsBefore} now={CH9_CODE.actionsNow} nowActive={1} nowPhase="commit">
-          An <b className="term">Action</b> is an async function you hand to a form or a transition. useActionState tracks its pending state and result, so you
-          stop writing those flags yourself.
+          An <b className="term">Action</b> is an async function you give to a form or a transition. useActionState tracks if it is still running and what it
+          returned, so you don't write those flags yourself.
         </BeforeNowCard>
         <BeforeNowCard
           title="Optimistic updates"
@@ -35,12 +35,12 @@ export function Chapter9() {
           nowActive={5}
           nowPhase="commit"
         >
-          useOptimistic shows the expected result while the request is in flight. When the Action finishes, React drops the optimistic value and shows the
-          real state, so a failure rolls back on its own.
+          useOptimistic shows the result you expect while the request is still running. When the Action finishes, React removes that guess and shows the real
+          state, so if the request fails, the screen goes back on its own.
         </BeforeNowCard>
         <BeforeNowCard title="The use API" versionId="use" before={CH9_CODE.useBefore} now={CH9_CODE.useNow} nowActive={3} nowPhase="render">
-          use reads a promise or a context during render. If the promise isn't ready, the component suspends and the nearest Suspense shows its fallback.
-          Unlike hooks, use can be called inside if statements and loops.
+          use reads a promise or a context during render. If the promise isn't ready yet, the component waits and the nearest Suspense shows its fallback
+          (like a spinner). Unlike hooks, use can be called inside if statements and loops.
         </BeforeNowCard>
         <BeforeNowCard
           title="The React Compiler"
@@ -49,8 +49,8 @@ export function Chapter9() {
           before={CH9_CODE.compilerBefore}
           now={CH9_CODE.compilerNow}
         >
-          The compiler adds memoization at build time, so components skip work that memo, useMemo and useCallback used to skip. You write the plain version;
-          chapter 4 still explains what it's doing for you.
+          The compiler adds memoization (caching) when you build your app, so components skip the same work memo, useMemo and useCallback used to skip. You
+          write the plain code; chapter 4 explains what the compiler does for you.
         </BeforeNowCard>
       </div>
 

@@ -7,11 +7,11 @@ export interface Myth {
 export const MYTHS: readonly Myth[] = [
   {
     myth: 'A re-render rebuilds the DOM.',
-    fact: 'Rendering calls your components and produces objects. The DOM only changes where the commit finds a difference.',
+    fact: 'Rendering calls your components and makes objects. The DOM only changes in the places where something is different.',
   },
   {
     myth: 'Changing props makes a component re-render.',
-    fact: 'A parent rendering makes it re-render. Props are just what the parent passed down this time.',
+    fact: 'Its parent re-rendering makes it re-render. Props are just what the parent passed down this time.',
   },
   {
     myth: 'setState changes the variable right away.',
@@ -19,10 +19,10 @@ export const MYTHS: readonly Myth[] = [
   },
   {
     myth: 'memo always makes things faster.',
-    fact: "It trades a props comparison for a skipped render. If a prop is a new object every time, it's pure overhead.",
+    fact: "It compares props to skip a render. If a prop is a new object every time, the check always fails and only adds work.",
   },
   {
     myth: 'useEffect runs right after setState.',
-    fact: 'It runs after React commits the render that used the new state, and after the browser paints it.',
+    fact: 'It runs after React has put the new state on the page, and after the browser has drawn it.',
   },
 ]
