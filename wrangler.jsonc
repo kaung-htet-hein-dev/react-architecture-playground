@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Worker name sets the URL: https://<name>.<account-subdomain>.workers.dev
+  "name": "react",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // BrowserRouter: serve index.html for client routes like /playground
+    "not_found_handling": "single-page-application"
+  }
+}
