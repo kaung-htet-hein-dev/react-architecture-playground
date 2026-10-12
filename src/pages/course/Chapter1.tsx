@@ -6,9 +6,11 @@ import { CodePane } from '../../components/code/CodePane'
 import { DomLog } from '../../components/DomLog'
 import { FrameTimeline } from '../../components/FrameTimeline'
 import { LivePreview, PreviewButton, PreviewValue } from '../../components/LivePreview'
+import { GoDeeper } from '../../components/GoDeeper'
 import { Panel } from '../../components/Panel'
 import { SimControls } from '../../components/SimControls'
 import { ComponentTree, TreeLegend } from '../../components/tree/ComponentTree'
+import { Takeaway } from '../../components/Takeaway'
 import { Toggle } from '../../components/ui/Toggle'
 import { Workbench } from '../../components/Workbench'
 import { WhyWhatHow } from '../../components/WhyWhatHow'
@@ -62,8 +64,12 @@ function Hero() {
           <span className="eyebrow">A guide to how React works, for people who already use it</span>
           <h1 className="display">React Internal</h1>
           <p className="lede max-w-[760px]">
-            You already use useState, keys and useEffect. Here we slow React down so you can watch each step: which functions run, what React compares,
-            and which parts of the page really change.
+            You already use useState, keys and useEffect. Here we slow React down so you can watch what happens after a click, one step at a time.
+          </p>
+          <p className="prose-body max-w-[760px]">
+            Every update goes through the same four steps below. Each chapter zooms into one of them. Chapters follow the same shape:{' '}
+            <b className="term">the problem</b>, <b className="term">the idea</b>, a demo to <b className="term">try</b>, and one sentence to{' '}
+            <b className="term">remember</b>. Extras sit in a closed "Go deeper" box you can skip.
           </p>
         </div>
         <LoopStrip />
@@ -113,14 +119,14 @@ export function Chapter1() {
         <div className="flex flex-col gap-12">
           <ChapterHeader n={1} title={info.title} eyebrow={info.eyebrow} />
           <WhyWhatHow
-            why="You have written this counter many times. It works, so you never had to ask what happens between the click and the new number. Most React bugs and speed problems happen in that gap."
+            why="You have written this counter many times. But what happens between the click and the new number? Most React bugs live in that gap."
             what={
               <>
-                One click goes through the four steps above. A <b className="term">component tree</b> is how React sees your app: every component, and every
-                HTML tag it returns, is a box with one parent and some children.
+                One click goes through four steps: trigger, render, reconcile, commit. React sees your app as a <b className="term">component tree</b>: each
+                component, and each HTML tag it returns, is one box.
               </>
             }
-            how="Press step to move forward one step at a time. The highlighted code line, the tree and the log always show the same moment, in the same color."
+            how="Use the step-forward button under the demo. The code, the tree and the page all show the same moment, in the same color. Then flip the switch to see a classic bug."
           />
 
           <Workbench
@@ -174,15 +180,18 @@ export function Chapter1() {
               </div>
             }
             after={
-              <Panel title="From event to pixel · one frame" meta="≈16.7 ms at 60 Hz · not to scale">
-                <FrameTimeline
-                  blocks={step.timeline?.blocks ?? []}
-                  playhead={step.timeline?.playhead ?? 0}
-                  label="One frame: event, render, compare, commit, idle, paint"
-                />
-              </Panel>
+              <GoDeeper hint="How the four steps fit into one screen frame">
+                <Panel title="From event to pixel · one frame" meta="≈16.7 ms at 60 Hz · not to scale">
+                  <FrameTimeline
+                    blocks={step.timeline?.blocks ?? []}
+                    playhead={step.timeline?.playhead ?? 0}
+                    label="One frame: event, render, compare, commit, idle, paint"
+                  />
+                </Panel>
+              </GoDeeper>
             }
           />
+          <Takeaway n={1} />
         </div>
       </ChapterSection>
     </>

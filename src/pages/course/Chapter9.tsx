@@ -1,5 +1,7 @@
 import { CHAPTERS } from '../../app/chapters'
 import { ChapterHeader } from '../../components/ChapterHeader'
+import { GoDeeper } from '../../components/GoDeeper'
+import { Takeaway } from '../../components/Takeaway'
 import { WhyWhatHow } from '../../components/WhyWhatHow'
 import { CH9_CODE } from '../../content/codeSamples'
 import { BeforeNowCard } from './ch9/BeforeNowCard'
@@ -17,9 +19,9 @@ export function Chapter9() {
     <ChapterSection n={9}>
       <ChapterHeader n={info.n} title={info.title} eyebrow={info.eyebrow} />
       <WhyWhatHow
-        why="A lot of the React code you learned to write is extra work around React: loading flags, undo logic when a request fails, fetching data in effects, memo everywhere. New versions of React do much of this for you."
-        what="Each card shows one pattern the old way and the new way. The loop under it is the same. The new APIs let React handle starting updates, waiting for data and memoizing for you."
-        how="Read the before, then the after, and look for the code that is gone. You can edit the version label on each card to keep it correct as React changes."
+        why="Much of the React code you learned is extra work around React: loading flags, undo when a request fails, fetching in effects, memo everywhere."
+        what="React 19 does much of that for you. The loop from chapter 1 does not change; React just takes over more of the work."
+        how="Each card shows the old way, then the new way. Look for the code that disappeared."
       />
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(460px,100%),1fr))] gap-5">
@@ -54,7 +56,10 @@ export function Chapter9() {
         </BeforeNowCard>
       </div>
 
-      <ServerComponentsCard />
+      <GoDeeper hint="Server Components: rendering on the server">
+        <ServerComponentsCard />
+      </GoDeeper>
+      <Takeaway n={9} />
     </ChapterSection>
   )
 }

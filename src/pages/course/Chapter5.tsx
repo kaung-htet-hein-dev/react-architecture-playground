@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { CHAPTERS } from '../../app/chapters'
 import { ChapterHeader } from '../../components/ChapterHeader'
 import { SimControls } from '../../components/SimControls'
+import { Takeaway } from '../../components/Takeaway'
 import { WhyWhatHow } from '../../components/WhyWhatHow'
 import { alpha, C } from '../../sim/colors'
 import { simControlProps } from '../../sim/playback'
@@ -102,15 +103,14 @@ export function Chapter5() {
     <ChapterSection n={5}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why="You have seen the warning that each child in a list needs a unique key. Using the index hides the warning, and most of the time nothing looks wrong. Then you delete a row, and the text you typed shows up in the wrong row."
+        why="Using the index as a key hides the warning, and most of the time nothing looks wrong. Then you delete a row, and the text you typed jumps to the wrong row."
         what={
           <>
-            <b className="term">Reconciliation</b> is React comparing the new element tree with the old one to decide what to keep, change, add or remove. In a
-            list, the <b className="term">key</b> tells React which new item is which old item. Same key means same component, so it keeps its state and its
-            place on the page.
+            After a render, React compares the new elements with the old ones. This is called <b className="term">reconciliation</b>. In a list, the{' '}
+            <b className="term">key</b> is how React knows which new row is which old row. Same key, same component, same state.
           </>
         }
-        how="We typed a note into each row, then removed the first row. Both lists got the same new data. Compare how React matched the rows on each side, and where the typed text ended up."
+        how="Each row already has a note typed in. The first row was just removed from both lists. Compare where the notes ended up. Then try Add and Shuffle."
       />
       <div className="flex flex-col gap-5">
         <div className="panel flex flex-wrap items-center gap-2 px-3.5 py-2.5">
@@ -152,6 +152,7 @@ export function Chapter5() {
         </div>
         <SimControls {...simControlProps(sim)} />
       </div>
+      <Takeaway n={5} />
     </ChapterSection>
   )
 }

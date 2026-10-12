@@ -3,6 +3,7 @@ import { ChapterHeader } from '../../components/ChapterHeader'
 import { CodePane } from '../../components/code/CodePane'
 import { Panel } from '../../components/Panel'
 import { SimControls } from '../../components/SimControls'
+import { Takeaway } from '../../components/Takeaway'
 import { WhyWhatHow } from '../../components/WhyWhatHow'
 import { C } from '../../sim/colors'
 import { simControlProps } from '../../sim/playback'
@@ -27,14 +28,14 @@ export function Chapter6() {
     <ChapterSection n={6}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why="useState has no name or ID, but every render it gives back the right value. Once you see how, the rules of hooks stop being rules to memorize and start making sense."
+        why={'useState has no name or ID, yet it always gives back the right value. How? The answer explains the rule "don\'t call hooks inside an if".'}
         what={
           <>
-            For every component on the page, React keeps a <b className="term">fiber</b>: an object that stores its type, props, place in the tree and a list of{' '}
-            <b className="term">hook slots</b>. Each hook call takes the next slot. React matches calls to slots only by order: first call, first slot.
+            React keeps a <b className="term">fiber</b> (a small object) for each component on the page. It holds a numbered list of{' '}
+            <b className="term">hook slots</b>. The first hook call gets slot 1, the second gets slot 2, and so on. Order is the only thing React uses.
           </>
         }
-        how="Step through two renders of Profile. In the first, isAdmin is true and three hooks run. In the second, isAdmin is false, so the useEffect inside the if is skipped, and the next hook reads the wrong slot."
+        how="Step through two renders. In render 2, the useEffect inside the if is skipped, so every hook after it grabs the wrong slot."
       />
 
       <div className="flex flex-col gap-5">
@@ -77,6 +78,7 @@ export function Chapter6() {
         <HookConsole lines={step.console ?? []} warning={d.warning} />
         <SimControls {...simControlProps(sim)} />
       </div>
+      <Takeaway n={6} />
     </ChapterSection>
   )
 }

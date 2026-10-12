@@ -2,6 +2,8 @@ import { useState, type ReactNode } from 'react'
 import { CHAPTERS } from '../../app/chapters'
 import { ChapterHeader } from '../../components/ChapterHeader'
 import { CodePane } from '../../components/code/CodePane'
+import { GoDeeper } from '../../components/GoDeeper'
+import { Takeaway } from '../../components/Takeaway'
 import { WhyWhatHow } from '../../components/WhyWhatHow'
 import { OTHERS, OTHERS_KICKER, REACT, VANILLA, type ApproachCopy, type OtherId } from '../../content/ch2'
 import { C } from '../../sim/colors'
@@ -59,8 +61,9 @@ function ApproachColumn({ copy, kicker, result, tabs }: { copy: ApproachCopy; ki
 }
 
 /**
- * Chapter 2 · Why React exists. The same to-do app three ways; each DOM-ops count is the
- * number of writes that approach made when it added an item (src/sim/scenarios/ch2-todo.ts).
+ * Chapter 2 · Why React exists. The same to-do app by hand and in React, with other frameworks
+ * in Go deeper; each DOM-ops count is the number of writes that approach made when it added an
+ * item (src/sim/scenarios/ch2-todo.ts).
  */
 export function Chapter2() {
   const [tab, setTab] = useState<OtherId>('vue')
@@ -90,20 +93,25 @@ export function Chapter2() {
     <ChapterSection n={2}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why="The screen must always match your data. Doing that by hand is easy for one counter and hard for a whole app. First, let's see the problem React was made to solve."
+        why="The screen must always match your data. By hand, that is easy for one counter and hard for a whole app: forget one spot and the screen shows old data."
         what={
           <>
-            One small to-do app with an "N left" label, built three ways. Adding an item changes two things on screen: a new row and the count. Every version
-            ends up making the same 4 <b className="term">DOM operations</b>, which means 4 direct changes to the page.
+            With plain JavaScript, <i>you</i> change the page. With React, you describe the page for the current data and <i>React</i> works out the changes.
+            Both end up making the same 4 <b className="term">DOM operations</b> (direct changes to the page).
           </>
         }
-        how="Compare who works out those 4 changes, and when. The highlighted line is the one that reacts to the new item. Each way has good and bad sides; none is free."
+        how="Read both versions of the same to-do app. Look at who has to know about the 4 changes: your code, or React."
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(330px,1fr))] items-stretch gap-5">
         <ApproachColumn copy={VANILLA} kicker={VANILLA.kicker ?? ''} result={RESULTS.vanilla} />
         <ApproachColumn copy={REACT} kicker={REACT.kicker ?? ''} result={RESULTS.react} />
-        <ApproachColumn copy={other} kicker={OTHERS_KICKER} result={RESULTS.fineGrained} tabs={tabs} />
       </div>
+      <GoDeeper hint="How Vue, Svelte, Solid and Angular do the same job">
+        <div className="max-w-[560px]">
+          <ApproachColumn copy={other} kicker={OTHERS_KICKER} result={RESULTS.fineGrained} tabs={tabs} />
+        </div>
+      </GoDeeper>
+      <Takeaway n={2} />
     </ChapterSection>
   )
 }

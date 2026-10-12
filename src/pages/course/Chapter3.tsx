@@ -3,6 +3,7 @@ import { CHAPTERS } from '../../app/chapters'
 import { ChapterHeader } from '../../components/ChapterHeader'
 import { CodePane } from '../../components/code/CodePane'
 import { Panel } from '../../components/Panel'
+import { Takeaway } from '../../components/Takeaway'
 import { WhyWhatHow } from '../../components/WhyWhatHow'
 import { C } from '../../sim/colors'
 import { CH3_COMPILED, CH3_COUNT_LINE, CH3_JSX, ch3Objects } from '../../sim/scenarios/ch3-elements'
@@ -25,15 +26,14 @@ export function Chapter3() {
     <ChapterSection n={3}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why={'"It re-rendered" sounds slow and unclear. It makes more sense once you see what a render really makes: plain JavaScript objects.'}
+        why={'People say "it re-rendered" as if the page was rebuilt. It was not. A render only makes plain JavaScript objects.'}
         what={
           <>
-            JSX is a short way to write function calls. Each call returns a <b className="term">React element</b>: a small object with a type, props and
-            children that describes one piece of UI. <b className="term">Rendering</b> means calling your component to get a tree of these objects. The page
-            does not change yet.
+            Your JSX turns into function calls. Each call returns a <b className="term">React element</b>: a small object that describes one piece of UI.{' '}
+            <b className="term">Rendering</b> means calling your component to get these objects. The page does not change yet.
           </>
         }
-        how={'Change count. The JSX stays the same; only the value inside the objects changes. Same state in, same UI out: that is what "UI is built from state" means.'}
+        how="Press + and −. Read the three panels left to right: your JSX, the function calls it becomes, and the objects they return. Only the number inside changes."
       />
       <div className="flex flex-col gap-5">
         <div className="panel flex flex-wrap items-center gap-3.5 px-3.5 py-2.5">
@@ -66,6 +66,7 @@ export function Chapter3() {
           </Panel>
         </div>
       </div>
+      <Takeaway n={3} />
     </ChapterSection>
   )
 }

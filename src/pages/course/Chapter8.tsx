@@ -1,7 +1,9 @@
 import { CHAPTERS } from '../../app/chapters'
 import { ChapterHeader } from '../../components/ChapterHeader'
+import { GoDeeper } from '../../components/GoDeeper'
 import { CodePane } from '../../components/code/CodePane'
 import { SimControls } from '../../components/SimControls'
+import { Takeaway } from '../../components/Takeaway'
 import { WhyWhatHow } from '../../components/WhyWhatHow'
 import { simControlProps } from '../../sim/playback'
 import {
@@ -39,15 +41,14 @@ export function Chapter8() {
     <ChapterSection n={8}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why="Rendering a big list can take longer than one frame (about 16 ms). While React is busy, the browser can't react to you, so typing feels stuck even though the code has no bug."
+        why="Rendering a big list can take longer than one frame (about 16 ms). While React is busy, the browser can't respond, so typing feels stuck."
         what={
           <>
-            Since React 18 you can mark an update as a <b className="term">transition</b>, which means "not urgent". React renders it in small pieces and checks
-            for urgent work between pieces. It can throw away a half-done render to handle a key press first. The page only changes when a render is
-            finished, so you never see half an update.
+            Wrap the slow update in <b className="term">startTransition</b> to mark it "not urgent". React then renders it in small pieces, and drops it to
+            handle your next key press first. You never see half an update.
           </>
         }
-        how={'We typed "react" into both inputs. Under each one, the main thread track shows what ran, and the frame strip shows which frames the browser had to skip.'}
+        how={'Press Play. Both inputs get "react" typed into them. Compare the tracks under each: the left one blocks the keys, the right one does not.'}
       />
 
       <div className="flex flex-col gap-5">
@@ -80,14 +81,16 @@ export function Chapter8() {
         <TrackLegend />
         <SimControls {...simControlProps(sim)} />
 
-        <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] gap-5">
-          <LaneCard data={LANES} />
-          <SuspenseCard />
-          <BatchingCard legacy={BATCH.legacy} modern={BATCH.modern} />
-        </div>
-
-        <RealListDemo />
+        <GoDeeper hint="Lanes, Suspense, batching, and a real slow list to type into">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] gap-5">
+            <LaneCard data={LANES} />
+            <SuspenseCard />
+            <BatchingCard legacy={BATCH.legacy} modern={BATCH.modern} />
+          </div>
+          <RealListDemo />
+        </GoDeeper>
       </div>
+      <Takeaway n={8} />
     </ChapterSection>
   )
 }

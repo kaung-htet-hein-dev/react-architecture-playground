@@ -7,6 +7,7 @@ import { SimControls } from '../../components/SimControls'
 import { ComponentTree } from '../../components/tree/ComponentTree'
 import { Tag } from '../../components/ui/Tag'
 import { Toggle } from '../../components/ui/Toggle'
+import { Takeaway } from '../../components/Takeaway'
 import { WhyWhatHow } from '../../components/WhyWhatHow'
 import { simControlProps } from '../../sim/playback'
 import { CH4_DEFAULTS, CH4_NODES, ch4Code, ch4Rerender, type Ch4NodeId, type Ch4Params } from '../../sim/scenarios/ch4-rerender'
@@ -33,15 +34,15 @@ export function Chapter4() {
     <ChapterSection n={4}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why={'"Why did this re-render?" is the most common React speed question. The answer is almost always one of three simple rules. Once you know them, you can guess the answer before you open any tools.'}
+        why={'"Why did this re-render?" is the most common React speed question. The answer is almost always one of three rules.'}
         what={
           <>
-            A component re-renders when its own state changes, when its parent re-renders, or when a <b className="term">context</b> it reads changes.{' '}
-            <b className="term">memo</b> lets a component skip a render caused by its parent if all its props are the same as last time. React checks this with{' '}
-            <b className="term">Object.is</b>. For objects, "the same" means the exact same object, not just one that looks equal.
+            A component re-renders when <b className="term">1.</b> its own state changes, <b className="term">2.</b> its parent re-renders, or{' '}
+            <b className="term">3.</b> a <b className="term">context</b> it reads changes. Wrapping it in <b className="term">memo</b> skips rule 2, but only
+            if every prop is the same as last time. A new object, like <code>{'{ gap: 8 }'}</code>, is never "the same", even if it looks equal.
           </>
         }
-        how="Click any box in the tree to call setState there. Watch the renders go down the tree, never up. Then try the switches: wrap Sidebar in memo, pass it a new object every render, and let Avatar read a context."
+        how="Click any box to call setState there. Renders flow down the tree, never up. Then turn on the switches one at a time and click again."
       />
       <div className="flex flex-col gap-5">
         <Panel title="Component tree · click a node to set state there" meta={step.treeNote}>
@@ -91,6 +92,7 @@ export function Chapter4() {
         </div>
         <SimControls {...simControlProps(sim)} />
       </div>
+      <Takeaway n={4} />
     </ChapterSection>
   )
 }
