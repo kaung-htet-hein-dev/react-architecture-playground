@@ -19,7 +19,7 @@ import {
 import type { NodeState, Scenario, TreeNode } from '../types'
 
 /**
- * Chapter 4 · What re-renders and why. App > Header, Main > (Sidebar > Nav, Avatar),
+ * Chapter 4 · Why a component re-renders. App > Header, Main > (Sidebar > Nav, Avatar),
  * (Feed > Post ×3). Main provides ThemeContext with a new object every render. Clicking a node
  * calls setState there; the model decides who renders (memo + Object.is, context propagation).
  */

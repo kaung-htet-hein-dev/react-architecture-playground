@@ -13,7 +13,7 @@ import {
 import type { DomOp } from '../types'
 
 /**
- * Chapter 2 · Why React exists. The same to-do app ("N left" label) built three ways; each one
+ * Chapter 2 · Why we need React. The same to-do app ("N left" label) built three ways; each one
  * adds one item, and we count the DOM writes it makes. Nothing here is hand-counted: the
  * vanilla version runs its own imperative code on the model DOM, the React version runs on
  * the fiber model, and "other approaches" run on a tiny fine-grained signal runtime (the model

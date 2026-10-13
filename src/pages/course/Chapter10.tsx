@@ -21,7 +21,7 @@ function SiteFooter() {
 }
 
 /**
- * Chapter 10 · Wrap-up: the loop map with chapter chips, myths, one-sentence summaries, the
+ * Chapter 10 · Review the whole loop: the loop map with chapter chips, myths, one-sentence summaries, the
  * quiz and the glossary, followed by the page footer.
  */
 export function Chapter10() {

@@ -61,7 +61,7 @@ function ApproachColumn({ copy, kicker, result, tabs }: { copy: ApproachCopy; ki
 }
 
 /**
- * Chapter 2 · Why React exists. The same to-do app by hand and in React, with other frameworks
+ * Chapter 2 · Why we need React. The same to-do app by hand and in React, with other frameworks
  * in Go deeper; each DOM-ops count is the number of writes that approach made when it added an
  * item (src/sim/scenarios/ch2-todo.ts).
  */

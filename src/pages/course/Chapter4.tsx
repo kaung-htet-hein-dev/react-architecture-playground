@@ -19,7 +19,7 @@ const info = CHAPTERS[3]
 const isNode = (id: string): id is Ch4NodeId => (CH4_NODES as readonly string[]).includes(id)
 
 /**
- * Chapter 4 · What re-renders and why. Click a node to call setState there; the toggles change
+ * Chapter 4 · Why a component re-renders. Click a node to call setState there; the toggles change
  * the app. The fiber model decides who renders, and everything updates live (R-S5): the trace
  * keeps its step when params change, and it opens on the finished wave.
  */

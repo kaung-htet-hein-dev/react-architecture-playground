@@ -203,7 +203,7 @@ export default function DevComponents() {
         <p className="m-0 -mt-2 text-[14.5px] text-text-secondary">System sans for prose, system mono for code, labels and anything that came from React.</p>
         <div className="flex flex-col border-t border-divider">
           <TypeRow spec="Display · 84/0.96 · 600 · −4.5%"><span className="display">React Internal</span></TypeRow>
-          <TypeRow spec="Chapter title · 44/1.06 · 600"><span className="h2">What re-renders and why</span></TypeRow>
+          <TypeRow spec="Chapter title · 44/1.06 · 600"><span className="h2">Why a component re-renders</span></TypeRow>
           <TypeRow spec="Mobile title · 30/1.08 · 600"><span className="text-[30px] leading-[1.08] font-semibold tracking-[-0.03em] text-text-heading">Fiber and hooks</span></TypeRow>
           <TypeRow spec="Section · 24 · 600"><span className="h3">Common myths</span></TypeRow>
           <TypeRow spec="Lede · 20/1.55 · 400"><span className="lede max-w-[640px]">We'll slow React down until you can see which functions run.</span></TypeRow>
@@ -398,7 +398,7 @@ export default function DevComponents() {
       </Section>
 
       <Section label="Composites" title="Chapter anatomy, workbench and timelines" intro="Not on the design sheet: the composed pieces, using chapter 1's running frame (step 6, commit).">
-        <ChapterHeader n={1} title="One click, slowed down" eyebrow="All four phases" />
+        <ChapterHeader n={1} title="One click, step by step" eyebrow="All four phases" />
         <WhyWhatHow
           why="You've written this counter a hundred times. It works, so you've never had to ask what happens between the click and the new number. That gap is where most React bugs and performance questions live."
           what={<>One click goes through the four phases above. A <b className="term">component tree</b> is how React sees your app: each component, and each HTML tag it returns, is a node with a parent and children.</>}

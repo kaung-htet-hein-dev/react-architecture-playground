@@ -11,7 +11,7 @@ import { ChapterSection } from './ChapterSection'
 const info = CHAPTERS[8]
 
 /**
- * Chapter 9 · Modern React. Four Before/Now cards and a wide Server Components card; each card's
+ * Chapter 9 · Newer React features. Four Before/Now cards and a wide Server Components card; each card's
  * version label is editable and saved to localStorage.
  */
 export function Chapter9() {

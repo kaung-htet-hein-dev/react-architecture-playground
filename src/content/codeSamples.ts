@@ -3,7 +3,7 @@
  * doc/design/Render Commit Repeat.dc.html (`codes()`).
  */
 
-/** Chapter 9 · Modern React: Before/Now pairs and the Server Components split. */
+/** Chapter 9 · Newer React features: Before/Now pairs and the Server Components split. */
 export const CH9_CODE = {
   actionsBefore:
     "const [error, setError] = useState(null);\nconst [pending, setPending] = useState(false);\n\nasync function onSubmit(e) {\n  e.preventDefault();\n  setPending(true);\n  setError(await updateName(name));\n  setPending(false);\n}\nreturn <form onSubmit={onSubmit}>…</form>;",

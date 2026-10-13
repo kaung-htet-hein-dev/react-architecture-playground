@@ -14,7 +14,7 @@ import {
 import type { Block, LogEntry, Scenario, StepPhase, TreeNode } from '../types'
 
 /**
- * Chapter 1 · One click, slowed down. Copy from design/Render Commit Repeat.dc.html `ch1()`.
+ * Chapter 1 · One click, step by step. Copy from design/Render Commit Repeat.dc.html `ch1()`.
  * `variant: 'error'` swaps in `onClick={setCount(count + 1)}`, which loops in render.
  */
 export interface Ch1Params {

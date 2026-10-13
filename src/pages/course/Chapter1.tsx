@@ -98,7 +98,7 @@ function phaseMeta(status: SimStatus, step: Step): { label: string; color: strin
 const opsLabel = (n: number) => `${n} DOM op${n === 1 ? '' : 's'}`
 
 /**
- * Hero + chapter 1 · One click, slowed down. The Counter trace drives every pane; the loop
+ * Hero + chapter 1 · One click, step by step. The Counter trace drives every pane; the loop
  * indicator follows the current step's phase.
  */
 export function Chapter1() {
