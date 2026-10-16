@@ -34,14 +34,31 @@ export function Chapter4() {
     <ChapterSection n={4}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
+        n={4}
         why={'"Why did this re-render?" is the most common React speed question. The answer is almost always one of three rules.'}
         what={
           <>
-            A component re-renders when <b className="term">1.</b> its own state changes, <b className="term">2.</b> its parent re-renders, or{' '}
-            <b className="term">3.</b> a <b className="term">context</b> it reads changes. Wrapping it in <b className="term">memo</b> skips rule 2, but only
-            if every prop is the same as last time. A new object, like <code>{'{ gap: 8 }'}</code>, is never "the same", even if it looks equal.
+            A component re-renders for one of the three reasons below. Wrapping it in <b className="term">memo</b> (a wrapper that compares props before rendering) skips rule 2, but only if every prop is
+            the same as last time. React checks "the same" with Object.is, so a new object like <code>{'{ gap: 8 }'}</code> is never the same, even if it looks
+            equal.
           </>
         }
+        stepsLabel="The three rules"
+        steps={[
+          'Its own state changes.',
+          'Its parent re-renders.',
+          <>
+            A <b className="term">context</b> it reads changes (a value passed down the tree without props, read with useContext).
+          </>,
+        ]}
+        analogy={{
+          body: 'Think of a phone tree at work. When news reaches a manager, they call everyone below them, whether the news is about them or not. memo is a team member who says: "only call me if what you hand me is different."',
+          breaks: 'React does not look inside the props to see if they mean the same thing. It only checks if each one is the exact same value as last time.',
+        }}
+        ask={{
+          q: 'Why doesn\'t React skip children with unchanged props by default?',
+          a: 'Comparing every prop of every component costs work too, and most renders are cheap. So React lets you opt in with memo, and the React Compiler (chapter 9) adds that caching for you.',
+        }}
         how="Click any box to call setState there. Renders flow down the tree, never up. Then turn on the switches one at a time and click again."
       />
       <div className="flex flex-col gap-5">

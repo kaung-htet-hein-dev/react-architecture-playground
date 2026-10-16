@@ -28,13 +28,28 @@ export function Chapter6() {
     <ChapterSection n={6}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
+        n={6}
         why={'useState has no name or ID, yet it always gives back the right value. How? The answer explains the rule "don\'t call hooks inside an if".'}
         what={
           <>
-            React keeps a <b className="term">fiber</b> (a small object) for each component on the page. It holds a numbered list of{' '}
-            <b className="term">hook slots</b>. The first hook call gets slot 1, the second gets slot 2, and so on. Order is the only thing React uses.
+            React keeps a <b className="term">fiber</b> (its own small object for one component on the page). Inside it is a numbered list of{' '}
+            <b className="term">hook slots</b> (one storage place per hook call). React never sees your variable names. It only counts calls.
           </>
         }
+        analogy={{
+          body: 'Think of gym lockers handed out in the order people walk in. If everyone always arrives in the same order, each person gets their own locker every day. If one person skips a day, everyone behind them opens someone else\'s locker.',
+          breaks: 'React notices some of these mix-ups, like a hook of the wrong kind in a slot, and warns you. A gym would not.',
+        }}
+        steps={[
+          'React calls Profile.',
+          'The first hook call reads slot 1, the second reads slot 2, and so on.',
+          'On the next render, React counts again from slot 1.',
+          'If an if skips one hook call, every hook after it reads the slot that belonged to the hook before it in line.',
+        ]}
+        ask={{
+          q: 'Why not give each hook a name, like useState(\'count\')?',
+          a: 'Names can clash. A custom hook could call useState twice, or two custom hooks could pick the same name. Call order needs no names, so any hook can call any other hook safely. The price is the rule: same hooks, same order, every render.',
+        }}
         how="Step through two renders. In render 2, the useEffect inside the if is skipped, so every hook after it grabs the wrong slot."
       />
 

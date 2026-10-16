@@ -63,14 +63,33 @@ export function Chapter7() {
     <ChapterSection n={7}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
+        n={7}
         why={'"It flickers", "it runs twice", "it uses an old value": most effect bugs come from an effect running at a different time than you expected.'}
         what={
           <>
-            First React <b className="term">commits</b>: it makes all the DOM changes at once. Then <b className="term">useLayoutEffect</b> runs, before the
-            screen is drawn. Then the browser draws. Then <b className="term">useEffect</b> runs. The dependency array decides <i>if</i> an effect runs at all:
-            it runs only when a value in it changed since last render.
+            To <b className="term">commit</b> is to make all the DOM changes React found, at once. An <b className="term">effect</b> is code React runs after
+            commit to keep something outside React in sync (a timer, a subscription, the page title). The <b className="term">dependency array</b> decides{' '}
+            <i>if</i> an effect runs at all: it runs only when a value in it changed since the last render.
           </>
         }
+        analogy={{
+          body: 'Think of a play. The crew moves the set while the curtain is down (commit). The stage manager does a last check before the curtain goes up (useLayoutEffect). The curtain goes up (the browser draws). Then the show goes on (useEffect).',
+          breaks: 'a play has one curtain. React goes through this order on every update that changes the page.',
+        }}
+        steps={[
+          'React commits: all DOM changes happen together.',
+          <>
+            <b className="term">useLayoutEffect</b> runs. The screen has not been drawn yet, so it can measure the page and fix it without a flicker.
+          </>,
+          'The browser draws the screen.',
+          <>
+            <b className="term">useEffect</b> runs.
+          </>,
+        ]}
+        ask={{
+          q: 'Why not always use useLayoutEffect, since it runs earlier?',
+          a: 'Because the browser cannot draw until it finishes. Slow code there makes the page feel stuck. Use it only when you need to measure or fix the page before anyone sees it, and use useEffect for everything else.',
+        }}
         how="Pick a dependency array and an update. The timeline shows what runs, left to right."
       />
 

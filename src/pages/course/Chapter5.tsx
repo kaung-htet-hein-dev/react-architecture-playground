@@ -103,14 +103,30 @@ export function Chapter5() {
     <ChapterSection n={5}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
+        n={5}
         why="Using the index as a key hides the warning, and most of the time nothing looks wrong. Then you delete a row, and the text you typed jumps to the wrong row."
         what={
           <>
-            After a render, React compares the new elements with the old ones. This is called <b className="term">reconciliation</b>. In a list, the{' '}
-            <b className="term">key</b> is how React knows which new row is which old row. Same key, same component, same state.
+            After a render, React compares the new elements with the old ones to decide what to keep, change, add or remove. This is called{' '}
+            <b className="term">reconciliation</b>. In a list, the <b className="term">key</b> is how React knows which new row is which old row. Same key,
+            same component, same state.
           </>
         }
-        how="Each row already has a note typed in. The first row was just removed from both lists. Compare where the notes ended up. Then try Add and Shuffle."
+        analogy={{
+          body: 'Think of a coat check. With key={item.id}, each ticket has the owner\'s name on it. With key={index}, the tickets only say "hook 1, hook 2, hook 3". If the first person leaves and everyone moves up one hook, each coat now hangs under the wrong name.',
+          breaks: 'in React the coats (the state, like typed text) stay on their hooks, and the names (the labels) move. The effect is the same: they no longer match.',
+        }}
+        steps={[
+          'Before: Milk, Bread and Eggs have keys 0, 1 and 2. You typed a note in each row.',
+          'You remove Milk. The new list is Bread and Eggs, with keys 0 and 1.',
+          'React matches by key. Key 0 still exists, so React keeps the first row and its input, and only changes the label to Bread.',
+          'Key 2 is gone, so React removes the last row. Milk\'s note now sits next to Bread.',
+        ]}
+        ask={{
+          q: 'Why does the index work most of the time?',
+          a: 'If items are only ever added at the end, an item\'s index never changes, so index and identity stay the same thing. The bug only shows when items are removed, inserted or reordered before others.',
+        }}
+        how="Each row already has a note typed in, and the first row has been removed from both lists. Compare where the notes ended up. Then try Add and Shuffle."
       />
       <div className="flex flex-col gap-5">
         <div className="panel flex flex-wrap items-center gap-2 px-3.5 py-2.5">

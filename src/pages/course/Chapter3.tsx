@@ -26,13 +26,27 @@ export function Chapter3() {
     <ChapterSection n={3}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
+        n={3}
         why={'People say "it re-rendered" as if the page was rebuilt. It was not. A render only makes plain JavaScript objects.'}
         what={
           <>
-            Your JSX turns into function calls. Each call returns a <b className="term">React element</b>: a small object that describes one piece of UI.{' '}
-            <b className="term">Rendering</b> means calling your component to get these objects. The page does not change yet.
+            Your JSX turns into function calls. Each call returns a <b className="term">React element</b> (a small object with a type, props and children
+            that describes one piece of UI). <b className="term">Rendering</b> means React calls your component to get these objects.
           </>
         }
+        analogy={{
+          body: 'Remember the blueprint from chapter 1. An element is the blueprint, not the building. Drawing a new blueprint touches nothing on the building site.',
+        }}
+        steps={[
+          'You write JSX, like <p>Count: {count}</p>.',
+          'When you build the app, the compiler turns each tag into a function call.',
+          'When React renders Counter, those calls run and return element objects.',
+          'The page has not changed. That happens later, in commit (chapter 7).',
+        ]}
+        ask={{
+          q: 'Is making all these objects on every render slow?',
+          a: 'Usually not. They are small plain objects, and making them costs much less than changing the real page. That is why React can afford to render often.',
+        }}
         how="Press + and −. Read the three panels left to right: your JSX, the function calls it becomes, and the objects they return. Only the number inside changes."
       />
       <div className="flex flex-col gap-5">

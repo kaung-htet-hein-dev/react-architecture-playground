@@ -19,8 +19,13 @@ export function Chapter9() {
     <ChapterSection n={9}>
       <ChapterHeader n={info.n} title={info.title} eyebrow={info.eyebrow} />
       <WhyWhatHow
+        n={9}
         why="Much of the React code you learned is extra work around React: loading flags, undo when a request fails, fetching in effects, memo everywhere."
-        what="React 19 does much of that for you. The loop from chapter 1 does not change; React just takes over more of the work."
+        what="The loop from chapter 1 does not change. React 19 takes over more of the work around it, one feature per card below."
+        ask={{
+          q: 'Do I have to rewrite my old code?',
+          a: 'No. The old way still works. These features are shorter ways to do the same jobs, so you can use them in new code first.',
+        }}
         how="Each card shows the old way, then the new way. Look for the code that disappeared."
       />
 

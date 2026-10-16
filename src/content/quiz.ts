@@ -22,7 +22,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'c',
     explain:
-      'setCount only queues an update. React renders Counter again, compares the result with the last one, changes the one text that is different, and then the browser draws the next frame.',
+      'This is the loop from chapter 1. First, setCount only queues an update. Next, React renders Counter again. Then it compares the result with the last one and finds the one text that changed. Finally it commits that change, and the browser draws the next frame.',
   },
   {
     q: 'count is 0. A click handler calls setCount(count + 1) three times. What does the next render see?',
@@ -34,7 +34,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'a',
     explain:
-      'All three calls read count from the same render, where it is 0, so each one queues "set to 1". Pass an updater, setCount(c => c + 1), when the next value depends on the previous one.',
+      'count is a plain const for this render, and it is 0. So each of the three calls queues "set to 1", and the next render applies them in turn: 1, 1, 1. Pass an updater, setCount(c => c + 1), when the next value depends on the previous one: each updater gets the result of the one before it.',
   },
   {
     q: "A parent re-renders and passes style={{ color: 'red' }} to a child wrapped in memo. Does the child re-render?",
@@ -46,7 +46,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'b',
     explain:
-      "Each render makes a new { color: 'red' } object. memo compares props with Object.is, and two different objects are never equal, even if they look the same. Move the object outside the component, or wrap it in useMemo.",
+      "Each render of the parent makes a new { color: 'red' } object. memo compares each prop with Object.is, and two different objects are never equal, even if they look the same. So memo sees a changed prop and renders the child (chapter 4). Move the object outside the component, or wrap it in useMemo.",
   },
   {
     q: 'A list uses key={index}, and each row has its own <input> (not controlled by state). You type in the first row, then delete the first item. What happens to your text?',
@@ -58,7 +58,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'd',
     explain:
-      "After the delete, key 0 still exists, so React keeps the first row and its input, and only changes the label. React removes the last row instead. Using an id from your data as the key keeps the text with the right item.",
+      "React matches rows by key (chapter 5). After the delete, key 0 still exists, so React keeps the first row and its input, and only changes the label. The last key is gone, so React removes the last row instead. Using an id from your data as the key keeps the text with the right item.",
   },
   {
     q: "Why can't you call useState inside an if statement?",
@@ -70,7 +70,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'c',
     explain:
-      "React keeps each component's hooks in a list. The first hook call reads slot 1, the second reads slot 2, and so on. If a call is skipped, every hook after it reads the wrong slot.",
+      "React keeps each component's hooks in a numbered list of slots and never sees their names (chapter 6). The first hook call reads slot 1, the second reads slot 2, and so on. If an if skips a call, every hook after it reads the wrong slot.",
   },
   {
     q: 'A click updates state. In what order do useLayoutEffect, the browser paint and useEffect happen?',
@@ -82,7 +82,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'a',
     explain:
-      'Commit changes the DOM. Then useLayoutEffect runs before the browser draws, so it can measure things without a flicker. useEffect runs after the screen is drawn.',
+      'Chapter 7 in order: commit changes the DOM. Then useLayoutEffect runs, before the browser draws, so it can measure things without a flicker. Then the browser draws. Then useEffect runs.',
   },
   {
     q: 'setFilter is wrapped in startTransition. The user types another letter while the list is still rendering. What does React do?',
@@ -94,7 +94,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'd',
     explain:
-      'A transition is not urgent, and React checks for urgent work between components. The typed letter goes first, the old list render is thrown away, and React starts again with the newest filter.',
+      'A transition is not urgent, and React checks for urgent work between components (chapter 8). So the typed letter goes first, the unfinished list render is thrown away, and React starts the list again with the newest filter.',
   },
   {
     q: 'A Server Component imports a database client and renders a client component. What JavaScript does the browser download?',
@@ -106,7 +106,7 @@ export const QUIZ: readonly QuizQuestion[] = [
     ],
     answer: 'b',
     explain:
-      "Server Component code is never sent to the browser. The browser gets the rendered result plus a pointer to each client component, and downloads only the code for those client components.",
+      "Server Component code, and everything it imports, stays on the server. The browser gets the rendered result plus a pointer to each client component, and downloads only the code for those client components.",
   },
 ]
 
