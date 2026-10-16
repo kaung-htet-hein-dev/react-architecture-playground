@@ -11,7 +11,7 @@ export const MYTHS: readonly Myth[] = [
   },
   {
     myth: 'Changing props makes a component re-render.',
-    fact: 'Its parent re-rendering makes it re-render. Props are just what the parent passed down this time.',
+    fact: 'Its parent re-rendering makes it re-render. Props are only what the parent passed down this time.',
   },
   {
     myth: 'setState changes the variable right away.',

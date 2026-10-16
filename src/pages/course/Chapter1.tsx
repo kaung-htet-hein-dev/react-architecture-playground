@@ -67,9 +67,9 @@ function Hero() {
             You already use useState, keys and useEffect. Here we slow React down so you can watch what happens after a click, one step at a time.
           </p>
           <p className="prose-body max-w-[760px]">
-            Every update goes through the same four steps below. Each chapter zooms into one of them. Chapters follow the same shape:{' '}
-            <b className="term">the problem</b>, <b className="term">the idea</b>, a demo to <b className="term">try</b>, and one sentence to{' '}
-            <b className="term">remember</b>. Extras sit in a closed "Go deeper" box you can skip.
+            Every update goes through the same four steps below. Each chapter zooms into one of them, and each one has the same shape: the problem, the
+            idea in one sentence, a picture to hold on to, the steps in order, a demo to try, and the same sentence again to remember. Extras sit in a
+            closed "Go deeper" box you can skip.
           </p>
         </div>
         <LoopStrip />
@@ -119,14 +119,39 @@ export function Chapter1() {
         <div className="flex flex-col gap-12">
           <ChapterHeader n={1} title={info.title} eyebrow={info.eyebrow} />
           <WhyWhatHow
-            why="You have written this counter many times. But what happens between the click and the new number? Most React bugs live in that gap."
+            n={1}
+            why="You have written this counter many times. But what happens between the click and the new number? Most React bugs live in that gap, so it pays to watch it once, slowly."
             what={
               <>
-                One click goes through four steps: trigger, render, reconcile, commit. React sees your app as a <b className="term">component tree</b>: each
-                component, and each HTML tag it returns, is one box.
+                React sees your app as a <b className="term">component tree</b>: each component, and each HTML tag it returns, is one box in the tree. Every
+                update, from any source, walks the same four steps over that tree.
               </>
             }
-            how="Use the step-forward button under the demo. The code, the tree and the page all show the same moment, in the same color. Then flip the switch to see a classic bug."
+            analogy={{
+              body: 'Think of a building with an architect and a crew. On every change, the architect draws a fresh blueprint (render). Someone lays it over the old one and circles what differs (reconcile). The crew then rebuilds only the circled walls (commit).',
+              breaks:
+                'a real architect would not redraw the whole building to move one door. React does redraw the whole blueprint for the component, every time. That is cheap, because a blueprint is only JavaScript objects (chapter 3).',
+            }}
+            steps={[
+              <>
+                <b className="term">Trigger.</b> Your click handler calls setCount. Nothing on the page changes yet; React puts the update in a queue (a to-do
+                list of updates).
+              </>,
+              <>
+                <b className="term">Render.</b> React calls Counter again. It returns a new description of the UI with the new count.
+              </>,
+              <>
+                <b className="term">Reconcile.</b> React compares the new description with the old one and finds the one text that changed.
+              </>,
+              <>
+                <b className="term">Commit.</b> React changes that one text on the page, and the browser draws the new frame.
+              </>,
+            ]}
+            ask={{
+              q: 'Why doesn\'t count change on the line where setCount runs?',
+              a: 'Because count is a plain const for this render. setCount only adds an update to the queue. The new value appears the next time React calls Counter, in step 2.',
+            }}
+            how="Use the step-forward button under the demo. The code, the tree and the page all show the same moment, in the same color. Then flip the switch: it calls setCount while rendering instead of on click, and you'll see React get stuck in a loop."
           />
 
           <Workbench

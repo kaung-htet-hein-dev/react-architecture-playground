@@ -141,7 +141,7 @@ export function BatchingCard({ legacy, modern }: { legacy: number; modern: numbe
       title="Automatic batching"
       body={
         <>
-          <b className="term">Batching</b> means several setState calls lead to just one render. Since React 18 this happens everywhere, even inside setTimeout
+          <b className="term">Batching</b> means several setState calls lead to only one render. Since React 18 this happens everywhere, even inside setTimeout
           and promises.
         </>
       }

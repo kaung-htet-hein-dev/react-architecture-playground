@@ -40,7 +40,7 @@ export const OTHERS: Record<OtherId, ApproachCopy> = {
       SC +
       '\n\n<ul>{#each todos as t (t.id)}<li>{t.text}</li>{/each}</ul>\n<p>{left} left</p>',
     active: 2,
-    runs: 'When you build the app, the compiler turns this file into code that adds a row and sets one text. In the browser that code just runs; nothing is compared.',
+    runs: 'When you build the app, the compiler turns this file into code that adds a row and sets one text. In the browser that code runs directly; nothing is compared.',
     plus: 'Little code shipped to the browser, and direct updates.',
     minus: 'More happens at build time, so how it behaves depends on the code the compiler writes.',
   },

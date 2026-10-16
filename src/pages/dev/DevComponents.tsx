@@ -400,6 +400,7 @@ export default function DevComponents() {
       <Section label="Composites" title="Chapter anatomy, workbench and timelines" intro="Not on the design sheet: the composed pieces, using chapter 1's running frame (step 6, commit).">
         <ChapterHeader n={1} title="One click, step by step" eyebrow="All four phases" />
         <WhyWhatHow
+          n={1}
           why="You've written this counter a hundred times. It works, so you've never had to ask what happens between the click and the new number. That gap is where most React bugs and performance questions live."
           what={<>One click goes through the four phases above. A <b className="term">component tree</b> is how React sees your app: each component, and each HTML tag it returns, is a node with a parent and children.</>}
           how="Press step. Each press moves one step forward. The highlighted line, the tree and the log always show the same moment, in the same phase color."

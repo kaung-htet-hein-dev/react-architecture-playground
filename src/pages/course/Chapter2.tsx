@@ -93,13 +93,23 @@ export function Chapter2() {
     <ChapterSection n={2}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
+        n={2}
         why="The screen must always match your data. By hand, that is easy for one counter and hard for a whole app: forget one spot and the screen shows old data."
         what={
           <>
             With plain JavaScript, <i>you</i> change the page. With React, you describe the page for the current data and <i>React</i> works out the changes.
-            Both end up making the same 4 <b className="term">DOM operations</b> (direct changes to the page).
+            Both versions below end up making the same 4 <b className="term">DOM operations</b> (direct changes to the page, like adding an element or
+            setting its text).
           </>
         }
+        analogy={{
+          body: 'Think of a taxi. You can give the driver every turn yourself ("left here, then second right"), or you can give the address and let the driver work out the turns. Plain JavaScript is giving every turn. React is giving the address.',
+          breaks: 'the driver might find a shorter route. React does not: it ends up making the same changes you would have made by hand, plus a little extra work to find them.',
+        }}
+        ask={{
+          q: 'If both make the same 4 changes, what does React buy you?',
+          a: 'Who has to know about them. In the plain version, addTodo must list every place that shows the to-dos. In React, you only describe the result, so a new place that shows the data cannot be forgotten in an update.',
+        }}
         how="Read both versions of the same to-do app. Look at who has to know about the 4 changes: your code, or React."
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(330px,1fr))] items-stretch gap-5">

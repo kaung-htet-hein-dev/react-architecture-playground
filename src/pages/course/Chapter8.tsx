@@ -41,13 +41,29 @@ export function Chapter8() {
     <ChapterSection n={8}>
       <ChapterHeader n={info.n} title={info.title} phases={info.phases} />
       <WhyWhatHow
-        why="Rendering a big list can take longer than one frame (about 16 ms). While React is busy, the browser can't respond, so typing feels stuck."
+        n={8}
+        why="Rendering a big list can take longer than one frame (about 16 ms on a 60 Hz screen). While React is busy, the browser can't respond, so typing feels stuck."
         what={
           <>
-            Wrap the slow update in <b className="term">startTransition</b> to mark it "not urgent". React then renders it in small pieces, and drops it to
-            handle your next key press first. You never see half an update.
+            Wrap the slow update in <b className="term">startTransition</b> to make it a <b className="term">transition</b> (an update marked as not urgent).
+            React renders a transition in small pieces and checks for urgent work between them. You never see half an update: only a finished render is
+            committed.
           </>
         }
+        analogy={{
+          body: 'Think of a cook working on a big order who stops whenever someone asks for a glass of water. Water never waits. If the big order changes halfway, the cook starts it again with the new order instead of finishing the old one.',
+          breaks: 'there is still only one cook. React does not render two things at the same time; it switches between them on one thread.',
+        }}
+        steps={[
+          'You type a letter. Updating the input is urgent, so React does it first.',
+          'The list update is a transition, so React starts rendering it in small pieces.',
+          'You type another letter before the list is done.',
+          'React drops the unfinished list render, updates the input, then renders the list again with the newest value.',
+        ]}
+        ask={{
+          q: 'Does this make the list render faster?',
+          a: 'No. The list takes as long as before. React only lets your key presses go first, so typing never waits for it.',
+        }}
         how={'Press Play. Both inputs get "react" typed into them. Compare the tracks under each: the left one blocks the keys, the right one does not.'}
       />
 
